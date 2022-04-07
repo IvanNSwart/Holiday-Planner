@@ -32,6 +32,9 @@ export class RegisterComponent implements OnInit {
 			.createUserWithEmailAndPassword(email, password)
 			.then((user) => {
 				console.log(user);
+			})
+			.catch((error) => {
+				alert("invalid register in details");
 			});
 	}
 	logout() {

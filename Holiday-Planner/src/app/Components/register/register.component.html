@@ -19,6 +19,16 @@
 					formControlName="email"
 					type="email"
 				/>
+				<div
+					*ngIf="
+						registerForm!.controls['email'].invalid &&
+						(registerForm!.controls['email'].dirty ||
+							registerForm!.controls['email'].touched)
+					"
+					class="text-red-400"
+				>
+					Enter a valid email
+				</div>
 			</div>
 			<div>
 				<label class="text-gray-800 font-semibold block my-3 text-md"
@@ -30,7 +40,18 @@
 					formControlName="password"
 					type="password"
 				/>
+				<div
+					*ngIf="
+						registerForm!.controls['password'].invalid &&
+						(registerForm!.controls['password'].dirty ||
+							registerForm!.controls['password'].touched)
+					"
+					class="text-red-400"
+				>
+					Your password must be 8 charaters long
+				</div>
 			</div>
+
 			<div>
 				<label class="text-gray-800 font-semibold block my-3 text-md"
 					>Confirm password</label

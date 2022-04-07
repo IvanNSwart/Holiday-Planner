@@ -4,6 +4,9 @@
 			class="bg-white p-10 rounded-lg shadow-lg min-w-full"
 			[formGroup]="loginForm!"
 		>
+			<div *ngIf="inValidLogin" class="text-red-400">
+				The details you have entered are invalid
+			</div>
 			<h1
 				class="text-center text-2xl mb-6 text-gray-600 font-bold font-sans"
 			>
@@ -19,6 +22,16 @@
 					formControlName="email"
 					type="email"
 				/>
+				<div
+					*ngIf="
+						loginForm!.controls['email'].invalid &&
+						(loginForm!.controls['email'].dirty ||
+							loginForm!.controls['email'].touched)
+					"
+					class="text-red-400"
+				>
+					Enter a valid email
+				</div>
 			</div>
 			<div>
 				<label class="text-gray-800 font-semibold block my-3 text-md"
@@ -30,6 +43,16 @@
 					formControlName="password"
 					type="password"
 				/>
+				<div
+					*ngIf="
+						loginForm!.controls['password'].invalid &&
+						(loginForm!.controls['password'].dirty ||
+							loginForm!.controls['password'].touched)
+					"
+					class="text-red-400"
+				>
+					Your password must be 8 charaters long
+				</div>
 			</div>
 
 			<button

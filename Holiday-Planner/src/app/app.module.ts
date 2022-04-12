@@ -16,6 +16,10 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { environment } from "src/environments/environment";
 import { AngularFireModule } from "@angular/fire/compat";
+import { MyTripsComponent } from "./Components/my-trips/my-trips.component";
+import { MainComponent } from "./Components/main/main.component";
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 registerLocaleData(en);
 
@@ -35,6 +39,8 @@ registerLocaleData(en);
 		NzFormModule,
 		ReactiveFormsModule,
 		AngularFireModule.initializeApp(environment.firebase),
+		StoreModule.forRoot({}, {}),
+		EffectsModule.forRoot([]),
 	],
 	providers: [{ provide: NZ_I18N, useValue: en_US }],
 	bootstrap: [AppComponent],

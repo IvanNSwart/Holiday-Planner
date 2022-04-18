@@ -104,13 +104,8 @@ In your Terminal start up the application by:
 Run using ng serve --open
 <img width="1718" alt="Screenshot 2022-04-18 at 21 01 02" src="https://user-images.githubusercontent.com/99400598/163861201-fb8d5e8e-6249-47ff-a3be-be7b86a03073.png">
 
-
-
 Run using npm run start:electron
 <img width="1728" alt="Screenshot 2022-04-18 at 21 01 44" src="https://user-images.githubusercontent.com/99400598/163861174-359d06b5-8963-4a6c-a969-44d97eec219e.png">
-
-
-
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

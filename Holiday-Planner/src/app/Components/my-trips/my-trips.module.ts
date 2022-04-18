@@ -2,9 +2,31 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { MyTripsComponent } from "./my-trips.component";
 import { MyTripsRoutingModule } from "./my-trips-routing.module";
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
+import { EffectsModule } from "@ngrx/effects";
+import { LoginEffects } from "src/app/store/effects/login.effects";
+import { environment } from "src/environments/environment";
+import { ViewTripComponent } from "./view-trip/view-trip.component";
+import { MyEventsComponent } from "./my-events/my-events.component";
+import { ViewEventComponent } from "./view-event/view-event.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
-	declarations: [MyTripsComponent],
-	imports: [CommonModule, MyTripsRoutingModule],
+	declarations: [
+		MyTripsComponent,
+		ViewTripComponent,
+		MyEventsComponent,
+		ViewEventComponent,
+	],
+	imports: [
+		CommonModule,
+		MyTripsRoutingModule,
+		EffectsModule.forFeature([LoginEffects]),
+		AngularFireModule.initializeApp(environment.firebase),
+		AngularFirestoreModule,
+		FormsModule,
+		ReactiveFormsModule,
+	],
 })
 export class ComponentsModule {}

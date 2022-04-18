@@ -38,11 +38,22 @@
 			<a
 				href="#"
 				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-				>{{ (user | async)?.Details.email }}</a
-			>
+			></a>
 		</div>
 	</div>
 </nav>
-<div>
-	<router-outlet></router-outlet>
+<div class="bg-teal-400 h-full">
+	<h1 class="text-3xl text-white flex justify-center pt-10 mb-10">
+		{{ (Event | async)?.Name }} Itinerary Item
+	</h1>
+	<div>{{ (Event | async)?.Cost }}</div>
+	<div class="flex justify-center mt-4">
+		<button
+			class="text-red-400"
+			(click)="deleteEvent()"
+			[routerLink]="['/MyTrips']"
+		>
+			Delete trip
+		</button>
+	</div>
 </div>

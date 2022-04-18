@@ -11,6 +11,7 @@ import { userState } from "src/app/store/reducer/auth.reducer";
 import * as UserActions from "src/app/store/actions/login.actions";
 import * as UserSelectors from "src/app/store/selector/auth.selectors";
 import { IUser } from "src/app/models/user";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-login",
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
 		email: "",
 	};
 	constructor(
+		private router: Router,
 		private fb: FormBuilder,
 		private auth: AngularFireAuth,
 		private userStore: Store<userState>
@@ -56,6 +58,7 @@ export class LoginComponent implements OnInit {
 						},
 					})
 				);
+				this.router.navigate(["Home"]);
 			})
 			.catch((error) => {
 				alert("invalid log in details");

@@ -6,7 +6,7 @@ import {
 	RouterStateSnapshot,
 	UrlTree,
 } from "@angular/router";
-import { map, Observable, tap } from "rxjs";
+import { Observable } from "rxjs";
 import { AuthServiceService } from "../services/auth-service.service";
 
 @Injectable({
@@ -26,21 +26,6 @@ export class LogedInGuard implements CanActivate {
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		return this.authService.checkAuth().pipe(
-			map((user) => {
-				if (user !== null) {
-					return true;
-				} else {
-					return false;
-				}
-			}),
-			tap((res) => {
-				if (res) {
-					return route;
-				} else {
-					return this.router.navigate(["/"]);
-				}
-			})
-		);
+		return true;
 	}
 }

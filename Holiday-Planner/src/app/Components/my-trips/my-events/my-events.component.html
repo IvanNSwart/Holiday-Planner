@@ -1,0 +1,40 @@
+<div class="bg-teal-400 h-full" *ngIf="!New">
+	<h1 class="text-3xl text-white flex justify-center pt-10 mb-10">
+		Trip Itinerary Items
+	</h1>
+	<div *ngFor="let event of Events | async; trackBy: identifyEvent">
+		<a
+			class="bg-teal-200 flex justify-between mt-3 py-4 shadow-lg mx-96 px-4"
+			[routerLink]="['event', event.id]"
+		>
+			<p class="font-bold">{{ event.Name }}</p>
+			<p>R{{ event.Cost }}</p>
+		</a>
+	</div>
+	<a
+		class="bg-teal-500 flex justify-center mt-3 py-4 shadow-lg mx-96"
+		(click)="createToggle()"
+	>
+		ADD
+	</a>
+</div>
+
+<div class="bg-teal-400 h-full" *ngIf="New">
+	<h1 class="text-3xl text-white flex justify-center pt-10 mb-10">
+		Add New Trip
+	</h1>
+	<form [formGroup]="newEventForm!">
+		<p>Item Name:</p>
+		<input formControlName="name" />
+		<p>Item tag</p>
+		<input formControlName="tag" />
+		<p>Start Date:</p>
+		<input type="datetime-local" formControlName="start_Time" />
+		<p>End Date:</p>
+		<input type="datetime-local" formControlName="end_Time" />
+		<p>Item cost in rands</p>
+		<input formControlName="cost" />
+
+		<button (click)="createEvent()">Create</button>
+	</form>
+</div>

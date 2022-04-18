@@ -39,6 +39,14 @@
 				href="#"
 				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
 			></a>
+			<a
+				href="#"
+				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+				>{{ user?.email }}</a
+			>
+			<a class="ml-2 bg-teal-200 text-white p-2" (click)="logout()"
+				>Sign Out</a
+			>
 		</div>
 	</div>
 </nav>
@@ -62,36 +70,66 @@
 		ADD
 	</a>
 </div>
-
-<div class="bg-teal-400 h-full" *ngIf="New">
-	<h1 class="text-3xl text-white flex justify-center pt-10 mb-10">
-		Add New Trip
-	</h1>
-	<form [formGroup]="newTripForm!">
-		<p>Trip Name:</p>
-		<input formControlName="TripName" />
-		<div
-			*ngIf="
-				newTripForm!.controls['TripName'].invalid &&
-				(newTripForm!.controls['TripName'].dirty ||
-					newTripForm!.controls['TripName'].touched)
-			"
-			class="text-red-400"
-		>
-			Enter a trip Name
+<div class="h-screen bg-teal-400 flex justify-center items-center">
+	<div class="lg:w-2/5 md:w-1/2 w-2/3">
+		<div class="bg-teal-200 h-full p-10 rounded-lg shadow-lg" *ngIf="New">
+			<button
+				(click)="createToggle()"
+				class="bg-teal-400 px-10 py-3 rounded-xl"
+			>
+				Back
+			</button>
+			<h1 class="text-3xl text-white flex justify-center pt-4 mb-10">
+				Add New Trip
+			</h1>
+			<form [formGroup]="newTripForm!" class="">
+				<p
+					class="text-gray-800 font-semibold text-md flex justify-center"
+				>
+					Trip Name:
+				</p>
+				<input
+					formControlName="TripName"
+					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+				/>
+				<div
+					*ngIf="
+						newTripForm!.controls['TripName'].invalid &&
+						(newTripForm!.controls['TripName'].dirty ||
+							newTripForm!.controls['TripName'].touched)
+					"
+					class="text-red-400"
+				>
+					Enter a trip Name
+				</div>
+				<p
+					class="text-gray-800 font-semibold text-md flex justify-center"
+				>
+					Trip Desc
+				</p>
+				<input
+					formControlName="TripDesc"
+					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+				/>
+				<div
+					*ngIf="
+						newTripForm!.controls['TripDesc'].invalid &&
+						(newTripForm!.controls['TripDesc'].dirty ||
+							newTripForm!.controls['TripDesc'].touched)
+					"
+					class="text-red-400"
+				>
+					Enter a trip description
+				</div>
+				<div class="flex justify-center">
+					<button
+						(click)="createTrip()"
+						class="bg-teal-400 px-10 py-3 rounded-xl"
+					>
+						Create
+					</button>
+				</div>
+			</form>
 		</div>
-		<p>Trip Desc</p>
-		<input formControlName="TripDesc" />
-		<div
-			*ngIf="
-				newTripForm!.controls['TripDesc'].invalid &&
-				(newTripForm!.controls['TripDesc'].dirty ||
-					newTripForm!.controls['TripDesc'].touched)
-			"
-			class="text-red-400"
-		>
-			Enter a trip description
-		</div>
-		<button (click)="createTrip()">Create</button>
-	</form>
+	</div>
 </div>

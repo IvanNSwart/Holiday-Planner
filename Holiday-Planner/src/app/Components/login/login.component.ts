@@ -6,10 +6,9 @@ import {
 	FormGroup,
 	Validators,
 } from "@angular/forms";
-import { select, Store } from "@ngrx/store";
+import { Store } from "@ngrx/store";
 import { userState } from "src/app/store/reducer/auth.reducer";
 import * as UserActions from "src/app/store/actions/login.actions";
-import * as UserSelectors from "src/app/store/selector/auth.selectors";
 import { IUser } from "src/app/models/user";
 import { Router } from "@angular/router";
 
@@ -63,9 +62,5 @@ export class LoginComponent implements OnInit {
 			.catch((error) => {
 				alert("invalid log in details");
 			});
-
-		this.userStore
-			.pipe(select(UserSelectors.getAuthUser))
-			.subscribe((res) => console.log(res));
 	}
 }

@@ -35,10 +35,15 @@
 			>
 				MyTrips
 			</a>
+
 			<a
 				href="#"
 				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-			></a>
+				>{{ user?.email }}</a
+			>
+			<a class="ml-2 bg-teal-200 text-white p-2" (click)="logout()"
+				>Sign Out</a
+			>
 		</div>
 	</div>
 </nav>
@@ -46,7 +51,27 @@
 	<h1 class="text-3xl text-white flex justify-center pt-10 mb-10">
 		{{ (Event | async)?.Name }} Itinerary Item
 	</h1>
-	<div>{{ (Event | async)?.Cost }}</div>
+
+	<div
+		class="bg-teal-200 flex justify-center mt-3 py-4 shadow-lg mx-96 non-italic text-white"
+	>
+		Tag: {{ (Event | async)?.Tag }}
+	</div>
+	<div
+		class="bg-teal-200 flex justify-center mt-3 py-4 shadow-lg mx-96 non-italic text-white"
+	>
+		Start {{ (Event | async)?.Start_Time }}
+	</div>
+	<div
+		class="bg-teal-200 flex justify-center mt-3 py-4 shadow-lg mx-96 non-italic text-white"
+	>
+		Finish {{ (Event | async)?.End_Time }}
+	</div>
+	<div
+		class="bg-teal-200 flex justify-center mt-3 py-4 shadow-lg mx-96 non-italic text-white"
+	>
+		Price: {{ (Event | async)?.Cost }}
+	</div>
 	<div class="flex justify-center mt-4">
 		<button
 			class="text-red-400"

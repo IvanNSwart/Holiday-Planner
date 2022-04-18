@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import {
 	FormBuilder,
 	FormControl,
@@ -6,15 +6,13 @@ import {
 	Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
-import { select, Store, StoreModule } from "@ngrx/store";
-import { map, Observable } from "rxjs";
+import { select, Store } from "@ngrx/store";
+import { Observable } from "rxjs";
 import { ITrips } from "src/app/models/trips";
+import { IUser } from "src/app/models/user";
+import { AuthServiceService } from "src/app/services/auth-service.service";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
-import {
-	authFeatureKey,
-	reducer,
-	userState,
-} from "src/app/store/reducer/auth.reducer";
+import { userState } from "src/app/store/reducer/auth.reducer";
 import * as UserSelectors from "src/app/store/selector/auth.selectors";
 
 @Component({
@@ -26,11 +24,13 @@ export class MyTripsComponent implements OnInit {
 	Trips?: Observable<ITrips[]>;
 	newTripForm?: FormGroup;
 	New?: boolean;
+	user?: IUser;
 	constructor(
 		private firebaseService: FirebaseServiceService,
 		private router: Router,
 		private fb: FormBuilder,
-		private userStore: Store<userState>
+		private userStore: Store<userState>,
+		private authService: AuthServiceService
 	) {}
 
 	ngOnInit(): void {
@@ -41,7 +41,7 @@ export class MyTripsComponent implements OnInit {
 		this.Trips = this.firebaseService.getTrips();
 		this.userStore
 			.pipe(select(UserSelectors.getAuthUser))
-			.subscribe((res) => console.log(res));
+			.subscribe((res) => (this.user = res));
 	}
 	identifyTrip(index: number, Trip: ITrips): string {
 		return Trip.id;
@@ -57,6 +57,8 @@ export class MyTripsComponent implements OnInit {
 		this.newTripForm?.reset;
 		this.New = !this.New;
 	}
-
+	logout() {
+		return this.authService.signOut();
+	}
 	// [routerLink]="['/product-details', product.id]">
 }

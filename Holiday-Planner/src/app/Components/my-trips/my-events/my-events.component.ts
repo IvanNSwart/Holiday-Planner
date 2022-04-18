@@ -6,9 +6,14 @@ import {
 	Validators,
 } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
+import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { IItineraryItem } from "src/app/models/itineraryItem";
+import { IUser } from "src/app/models/user";
+import { AuthServiceService } from "src/app/services/auth-service.service";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
+import { userState } from "src/app/store/reducer/auth.reducer";
+import * as UserSelectors from "src/app/store/selector/auth.selectors";
 
 @Component({
 	selector: "app-my-events",
@@ -21,10 +26,13 @@ export class MyEventsComponent implements OnInit {
 	sub: any;
 	id?: string;
 	New?: boolean;
+	user?: IUser;
 	constructor(
 		private fireService: FirebaseServiceService,
 		private route: ActivatedRoute,
-		private fb: FormBuilder
+		private fb: FormBuilder,
+		private authService: AuthServiceService,
+		private userStore: Store<userState>
 	) {}
 
 	ngOnInit(): void {
@@ -37,6 +45,9 @@ export class MyEventsComponent implements OnInit {
 				start_Time: new FormControl("", Validators.required),
 				cost: new FormControl("", Validators.required),
 			});
+			this.userStore
+				.pipe(select(UserSelectors.getAuthUser))
+				.subscribe((res) => (this.user = res));
 		});
 
 		this.Events = this.fireService.getEvents(this.id!);
@@ -62,5 +73,8 @@ export class MyEventsComponent implements OnInit {
 		this.Events = this.fireService.getEvents(this.id!);
 		this.newEventForm?.reset;
 		this.New = !this.New;
+	}
+	logout() {
+		return this.authService.signOut();
 	}
 }

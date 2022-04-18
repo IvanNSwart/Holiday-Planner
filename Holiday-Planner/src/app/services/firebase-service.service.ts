@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Injectable } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { AngularFirestore } from "@angular/fire/compat/firestore";
-import { AngularFireStorage } from "@angular/fire/compat/storage";
-import { initializeApp } from "firebase/app";
-import { Firestore, collection, doc, setDoc } from "firebase/firestore";
+
 import { map, Observable } from "rxjs";
 import { IItineraryItem } from "../models/itineraryItem";
 import { ITrips } from "../models/trips";

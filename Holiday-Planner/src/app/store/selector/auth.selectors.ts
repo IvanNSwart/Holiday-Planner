@@ -5,5 +5,5 @@ const authFeatureSelector = createFeatureSelector<userState>(authFeatureKey);
 
 export const getAuthUser = createSelector(
 	authFeatureSelector,
-	(state: userState) => state.user
+	(state: userState) => state.user!
 );

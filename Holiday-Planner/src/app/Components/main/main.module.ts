@@ -9,13 +9,15 @@ import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
 import { environment } from "src/environments/environment";
 import { getFirestore } from "firebase/firestore";
 import { Firestore, provideFirestore } from "@angular/fire/firestore";
+import { StoreModule } from "@ngrx/store";
+import { authFeatureKey, reducer } from "src/app/store/reducer/auth.reducer";
 
 @NgModule({
 	declarations: [MainComponent],
 	imports: [
 		CommonModule,
 		MainRoutingModule,
-		EffectsModule.forFeature([LoginEffects]),
+		StoreModule.forFeature(authFeatureKey, reducer),
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFirestoreModule,
 	],

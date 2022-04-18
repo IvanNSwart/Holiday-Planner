@@ -11,6 +11,8 @@ import { ViewTripComponent } from "./view-trip/view-trip.component";
 import { MyEventsComponent } from "./my-events/my-events.component";
 import { ViewEventComponent } from "./view-event/view-event.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { authFeatureKey, reducer } from "src/app/store/reducer/auth.reducer";
+import { StoreModule } from "@ngrx/store";
 
 @NgModule({
 	declarations: [
@@ -22,7 +24,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 	imports: [
 		CommonModule,
 		MyTripsRoutingModule,
-		EffectsModule.forFeature([LoginEffects]),
+		StoreModule.forFeature(authFeatureKey, reducer),
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFirestoreModule,
 		FormsModule,

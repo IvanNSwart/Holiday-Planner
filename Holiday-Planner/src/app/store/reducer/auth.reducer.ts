@@ -3,7 +3,7 @@ import { IUser } from "src/app/models/user";
 
 import { loadLoginsSuccess } from "../actions/login.actions";
 
-export const authFeatureKey = "auth";
+export const authFeatureKey = "Login";
 
 export interface userState {
 	user: IUser | null;

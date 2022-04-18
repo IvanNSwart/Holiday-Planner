@@ -64,6 +64,8 @@ export class LoginComponent implements OnInit {
 				alert("invalid log in details");
 			});
 
-		console.log(this.userStore.pipe(select(UserSelectors.getAuthUser)));
+		this.userStore
+			.pipe(select(UserSelectors.getAuthUser))
+			.subscribe((res) => console.log(res));
 	}
 }

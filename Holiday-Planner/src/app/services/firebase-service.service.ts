@@ -7,22 +7,38 @@ import { map, Observable } from "rxjs";
 import { IItineraryItem } from "../models/itineraryItem";
 import { ITrips } from "../models/trips";
 import { IUser } from "../models/user";
+import * as UserSelectors from "src/app/store/selector/auth.selectors";
+import { select, Store } from "@ngrx/store";
+import { userState } from "../store/reducer/auth.reducer";
+import { AngularFireAuth } from "@angular/fire/compat/auth";
 @Injectable({
 	providedIn: "root",
 })
 export class FirebaseServiceService {
-	constructor(private db: AngularFirestore) {}
+	user?: IUser;
 
+	constructor(
+		private db: AngularFirestore,
+		private userStore: Store<userState>,
+		private auth: AngularFireAuth
+	) {
+		this.userStore
+			.pipe(select(UserSelectors.getAuthUser))
+			.subscribe((res) => (this.user = res));
+	}
+	getAuth() {
+		return this.userStore.pipe(select(UserSelectors.getAuthUser));
+	}
 	getUser() {
 		return this.db
 			.collection("Users")
-			.doc("tlpBvkp5BqhrNe5PTVvHcJXHKR73")
+			.doc(`${this.user?.id}`)
 			.valueChanges();
 	}
 	getTrips(): Observable<ITrips[]> {
 		return this.db
 			.collection<ITrips>("Trips", (ref) =>
-				ref.where("UserId", "==", "tlpBvkp5BqhrNe5PTVvHcJXHKR73")
+				ref.where("UserId", "==", `${this.user?.id}`)
 			)
 			.snapshotChanges()
 			.pipe(
@@ -84,7 +100,7 @@ export class FirebaseServiceService {
 			.add({
 				Name: `${Name}`,
 				Desc: `${Desc}`,
-				UserId: "testing",
+				UserId: `${this.user?.id}`,
 			})
 			.then((docRef) => {
 				console.log("Document written with ID: ", docRef.id);

@@ -6,9 +6,16 @@ import {
 	Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
+import { select, Store, StoreModule } from "@ngrx/store";
 import { map, Observable } from "rxjs";
 import { ITrips } from "src/app/models/trips";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
+import {
+	authFeatureKey,
+	reducer,
+	userState,
+} from "src/app/store/reducer/auth.reducer";
+import * as UserSelectors from "src/app/store/selector/auth.selectors";
 
 @Component({
 	selector: "app-my-trips",
@@ -22,7 +29,8 @@ export class MyTripsComponent implements OnInit {
 	constructor(
 		private firebaseService: FirebaseServiceService,
 		private router: Router,
-		private fb: FormBuilder
+		private fb: FormBuilder,
+		private userStore: Store<userState>
 	) {}
 
 	ngOnInit(): void {
@@ -31,6 +39,9 @@ export class MyTripsComponent implements OnInit {
 			TripDesc: new FormControl("", Validators.required),
 		});
 		this.Trips = this.firebaseService.getTrips();
+		this.userStore
+			.pipe(select(UserSelectors.getAuthUser))
+			.subscribe((res) => console.log(res));
 	}
 	identifyTrip(index: number, Trip: ITrips): string {
 		return Trip.id;

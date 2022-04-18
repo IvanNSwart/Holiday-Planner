@@ -6,8 +6,9 @@ import {
 	RouterStateSnapshot,
 	UrlTree,
 } from "@angular/router";
-import { Observable } from "rxjs";
+import { map, Observable, take } from "rxjs";
 import { AuthServiceService } from "../services/auth-service.service";
+import { FirebaseServiceService } from "../services/firebase-service.service";
 
 @Injectable({
 	providedIn: "root",
@@ -15,7 +16,8 @@ import { AuthServiceService } from "../services/auth-service.service";
 export class LogedInGuard implements CanActivate {
 	constructor(
 		private router: Router,
-		private authService: AuthServiceService
+		private authService: AuthServiceService,
+		private fireService: FirebaseServiceService
 	) {}
 
 	canActivate(
@@ -26,6 +28,15 @@ export class LogedInGuard implements CanActivate {
 		| Promise<boolean | UrlTree>
 		| boolean
 		| UrlTree {
-		return true;
+		return this.fireService.getAuth().pipe(
+			map((user) => {
+				if (user === null) {
+					this.router.navigate(["/"]);
+					return false;
+				} else {
+					return true;
+				}
+			})
+		);
 	}
 }

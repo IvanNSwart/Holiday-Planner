@@ -11,6 +11,7 @@ import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
 import { ITrips } from "src/app/models/trips";
 import { Router } from "@angular/router";
+import { AuthServiceService } from "src/app/services/auth-service.service";
 
 @Component({
 	selector: "app-main",
@@ -18,19 +19,25 @@ import { Router } from "@angular/router";
 	styleUrls: ["./main.component.scss"],
 })
 export class MainComponent implements OnInit {
-	user?: Observable<any>;
+	user?: IUser;
 
 	constructor(
 		private userStore: Store<userState>,
 		private firebaseService: FirebaseServiceService,
-		private router: Router
+		private router: Router,
+		private authService: AuthServiceService
 	) {}
 
 	// user$?: Observable<any>;
 	ngOnInit(): void {
-		this.user = this.firebaseService.getUser();
+		this.userStore
+			.pipe(select(UserSelectors.getAuthUser))
+			.subscribe((res) => (this.user = res));
 	}
 	getMyTrips() {
 		this.router.navigate(["MyTrips"]);
+	}
+	logout() {
+		return this.authService.signOut();
 	}
 }

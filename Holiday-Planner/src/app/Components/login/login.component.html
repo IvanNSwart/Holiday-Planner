@@ -1,0 +1,71 @@
+<div class="h-screen bg-indigo-100 flex justify-center items-center">
+	<div class="lg:w-2/5 md:w-1/2 w-2/3">
+		<form
+			class="bg-white p-10 rounded-lg shadow-lg min-w-full"
+			[formGroup]="loginForm!"
+		>
+			<h1
+				class="text-center text-2xl mb-6 text-gray-600 font-bold font-sans"
+			>
+				Login
+			</h1>
+			<div>
+				<label class="text-gray-800 font-semibold block my-3 text-md"
+					>Email</label
+				>
+				<input
+					class="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+					placeholder="Email"
+					formControlName="email"
+					type="email"
+				/>
+				<div
+					*ngIf="
+						loginForm!.controls['email'].invalid &&
+						(loginForm!.controls['email'].dirty ||
+							loginForm!.controls['email'].touched)
+					"
+					class="text-red-400"
+				>
+					Enter a valid email
+				</div>
+			</div>
+			<div>
+				<label class="text-gray-800 font-semibold block my-3 text-md"
+					>Password</label
+				>
+				<input
+					class="w-full bg-gray-100 px-4 py-2 rounded-lg focus:outline-none"
+					placeholder="Password"
+					formControlName="password"
+					type="password"
+				/>
+				<div
+					*ngIf="
+						loginForm!.controls['password'].invalid &&
+						(loginForm!.controls['password'].dirty ||
+							loginForm!.controls['password'].touched)
+					"
+					class="text-red-400"
+				>
+					Your password must be 8 charaters long
+				</div>
+			</div>
+
+			<button
+				type="submit"
+				class="w-full mt-6 bg-indigo-600 rounded-lg px-4 py-2 text-lg text-white tracking-wide font-semibold font-sans"
+				(click)="login()"
+			>
+				Login
+			</button>
+			<button
+				type="submit"
+				class="w-full mt-6 mb-3 bg-indigo-100 rounded-lg px-4 py-2 text-lg text-gray-800 tracking-wide font-semibold font-sans"
+				routerLink="/register"
+			>
+				Sign Up
+			</button>
+		</form>
+	</div>
+</div>

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "holiday-planner-d4a6b": {
+      "hosting": {
+        "Holiday-Planner": [
+          "holiday-planner-d4a6b"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "holiday-planner-d4a6b"
+  }
+}

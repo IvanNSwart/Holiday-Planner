@@ -7,6 +7,18 @@ import { RegisterComponent } from "./Components/register/register.component";
 const routes: Routes = [
 	{ path: "login", component: LoginComponent },
 	{ path: "register", component: RegisterComponent },
+	{
+		path: "MyTrips",
+		loadChildren: () =>
+			import("./Components/my-trips/my-trips.module").then(
+				(m) => m.ComponentsModule
+			),
+	},
+	{
+		path: "Home",
+		loadChildren: () =>
+			import("./Components/main/main.module").then((m) => m.MainModule),
+	},
 	{ path: "", redirectTo: "/login", pathMatch: "full" },
 	{ path: "**", component: NotfoundComponent },
 ];

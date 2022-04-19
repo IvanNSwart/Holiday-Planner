@@ -1,13 +1,16 @@
-import { invalid } from "@angular/compiler/src/render3/view/util";
 import { Component, OnInit } from "@angular/core";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 import {
-	EmailValidator,
 	FormBuilder,
 	FormControl,
 	FormGroup,
 	Validators,
 } from "@angular/forms";
+import { Store } from "@ngrx/store";
+import { userState } from "src/app/store/reducer/auth.reducer";
+import * as UserActions from "src/app/store/actions/login.actions";
+import { IUser } from "src/app/models/user";
+import { Router } from "@angular/router";
 
 @Component({
 	selector: "app-login",
@@ -16,8 +19,16 @@ import {
 })
 export class LoginComponent implements OnInit {
 	loginForm?: FormGroup;
-	inValidLogin = false;
-	constructor(private fb: FormBuilder, private auth: AngularFireAuth) {}
+	loginUser: IUser = {
+		id: "",
+		email: "",
+	};
+	constructor(
+		private router: Router,
+		private fb: FormBuilder,
+		private auth: AngularFireAuth,
+		private userStore: Store<userState>
+	) {}
 
 	ngOnInit(): void {
 		this.loginForm = this.fb.group({
@@ -28,6 +39,7 @@ export class LoginComponent implements OnInit {
 			]),
 		});
 	}
+
 	login() {
 		const { email, password } = this.loginForm?.value;
 		if (this.loginForm?.invalid) {
@@ -36,8 +48,16 @@ export class LoginComponent implements OnInit {
 		this.auth
 			.signInWithEmailAndPassword(email, password)
 			.then((user) => {
-				this.inValidLogin = false;
-				console.log(user + " is logged in");
+				console.log(user.user?.email + " is logged in");
+				this.userStore.dispatch(
+					UserActions.loadLoginsSuccess({
+						user: {
+							id: user.user!.uid,
+							email: user.user!.email,
+						},
+					})
+				);
+				this.router.navigate(["Home"]);
 			})
 			.catch((error) => {
 				alert("invalid log in details");

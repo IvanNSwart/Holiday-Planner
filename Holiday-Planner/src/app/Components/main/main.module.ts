@@ -13,12 +13,14 @@ import { StoreModule } from "@ngrx/store";
 import { authFeatureKey, reducer } from "src/app/store/reducer/auth.reducer";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { NgZorroModule } from "src/app/modules/ng-zorro/ng-zorro.module";
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
 	declarations: [MainComponent],
 	imports: [
 		CommonModule,
 		MainRoutingModule,
+		FormsModule,
 		StoreModule.forFeature(authFeatureKey, reducer),
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFirestoreModule,

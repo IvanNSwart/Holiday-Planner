@@ -49,6 +49,10 @@
 	</div>
 </nav>
 
-<div class="bg-teal-400 grid place-items-center h-screen">
-	<h1 class="text-7xl">Welcome to your Holiday Planner</h1>
+<div class="bg-teal-400 p-6">
+	<nz-calendar
+		[(ngModel)]="date"
+		[(nzMode)]="mode"
+		(nzPanelChange)="panelChange($event)"
+	></nz-calendar>
 </div>

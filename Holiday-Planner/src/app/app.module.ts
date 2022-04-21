@@ -21,6 +21,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
 import { authFeatureKey, reducer } from "./store/reducer/planner.reducer";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { FilterEventsPipe } from './pipes/filter-events.pipe';
 
 registerLocaleData(en);
 
@@ -30,6 +31,7 @@ registerLocaleData(en);
 		LoginComponent,
 		RegisterComponent,
 		NotfoundComponent,
+  FilterEventsPipe,
 	],
 	imports: [
 		BrowserModule,

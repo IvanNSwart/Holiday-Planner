@@ -20,7 +20,7 @@ export class LoginEffects {
 			ofType(plannerActions.getTrips),
 			concatMap(() =>
 				this.fireService
-					.getTrips(this.user?.id!)
+					.getTrips()
 					.pipe(
 						map((trips) =>
 							plannerActions.getTripsSuccess({ trips })

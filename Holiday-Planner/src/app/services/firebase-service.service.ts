@@ -33,10 +33,10 @@ export class FirebaseServiceService {
 			.doc(`${this.user?.id}`)
 			.valueChanges();
 	}
-	getTrips(): Observable<ITrip[]> {
+	getTrips(userid: string): Observable<ITrip[]> {
 		return this.db
 			.collection<ITrip>("Trips", (ref) =>
-				ref.where("userId", "==", `${this.user?.id}`)
+				ref.where("userId", "==", `${userid}`)
 			)
 			.snapshotChanges()
 			.pipe(

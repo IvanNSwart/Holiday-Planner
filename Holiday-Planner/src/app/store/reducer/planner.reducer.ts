@@ -4,7 +4,7 @@ import { ITrip } from "src/app/models/trip";
 import { IUser } from "src/app/models/user";
 import * as plannerActions from "../actions/planner.actions";
 
-export const authFeatureKey = "Holiday";
+export const authFeatureKey = "holiday";
 
 export interface userState {
 	isLoading: Boolean;

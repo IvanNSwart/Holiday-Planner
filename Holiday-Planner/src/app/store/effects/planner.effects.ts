@@ -19,15 +19,13 @@ export class LoginEffects {
 		return this.actions$.pipe(
 			ofType(plannerActions.getTrips),
 			concatMap(() =>
-				this.fireService.getTrips().pipe(
-					map((trips) => plannerActions.getTripsSuccess({ trips })),
-					catchError((error) => {
-						console.log(error);
-						return of(
-							plannerActions.getTripsSuccess({ trips: [] })
-						);
-					})
-				)
+				this.fireService
+					.getTrips(this.user?.id!)
+					.pipe(
+						map((trips) =>
+							plannerActions.getTripsSuccess({ trips })
+						)
+					)
 			)
 		);
 	});

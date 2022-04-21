@@ -46,7 +46,6 @@ export class MyTripsComponent implements OnInit {
 		//listen trips
 		this.Trips$ = this.userStore.pipe(select(UserSelectors.selectTrips));
 
-		this.Trips$ = this.firebaseService.getTrips();
 		this.Trips$.subscribe((res) => console.log(res));
 		this.userStore
 			.pipe(select(UserSelectors.getAuthUser))
@@ -63,7 +62,7 @@ export class MyTripsComponent implements OnInit {
 			this.newTripForm?.value;
 
 		this.firebaseService.createTrip(tripName, tripDesc, tripStart, tripEnd);
-		this.Trips$ = this.firebaseService.getTrips();
+		// this.Trips$ = this.firebaseService.getTrips();
 		this.newTripForm?.reset;
 		this.New = !this.New;
 	}

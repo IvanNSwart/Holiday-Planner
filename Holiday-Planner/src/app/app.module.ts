@@ -5,7 +5,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { LoginComponent } from "./Components/login/login.component";
 import { RegisterComponent } from "./Components/register/register.component";
-import { NotfoundComponent } from "./Components/notfound/notfound.component";
+import { NotfoundComponent } from "./Components/not-found/notfound.component";
 import { NZ_I18N } from "ng-zorro-antd/i18n";
 import { en_US } from "ng-zorro-antd/i18n";
 import { registerLocaleData } from "@angular/common";

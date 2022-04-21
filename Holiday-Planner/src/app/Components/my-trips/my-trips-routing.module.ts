@@ -10,18 +10,15 @@ const routes: Routes = [
 	{
 		path: "",
 		component: MyTripsComponent,
-		canActivate: [LogedInGuard],
 	},
 	{
 		path: ":id",
 		component: ViewTripComponent,
-		canActivate: [LogedInGuard],
 	},
 
 	{
 		path: ":id/event/:id",
 		component: ViewEventComponent,
-		canActivate: [LogedInGuard],
 	},
 ];
 

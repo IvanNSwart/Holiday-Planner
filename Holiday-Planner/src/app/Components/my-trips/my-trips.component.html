@@ -57,7 +57,7 @@
 			class="bg-teal-200 flex justify-center mt-3 py-4 shadow-lg mx-96"
 			[routerLink]="['/MyTrips', trip.id]"
 		>
-			{{ trip.Name }}
+			{{ trip.name }}
 		</a>
 	</div>
 	<a
@@ -86,14 +86,14 @@
 					Trip Name:
 				</p>
 				<input
-					formControlName="TripName"
+					formControlName="tripName"
 					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
 				/>
 				<div
 					*ngIf="
-						newTripForm!.controls['TripName'].invalid &&
-						(newTripForm!.controls['TripName'].dirty ||
-							newTripForm!.controls['TripName'].touched)
+						newTripForm!.controls['tripName'].invalid &&
+						(newTripForm!.controls['tripName'].dirty ||
+							newTripForm!.controls['tripName'].touched)
 					"
 					class="text-red-400"
 				>
@@ -105,14 +105,14 @@
 					Trip Desc
 				</p>
 				<input
-					formControlName="TripDesc"
+					formControlName="tripDesc"
 					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
 				/>
 				<div
 					*ngIf="
-						newTripForm!.controls['TripDesc'].invalid &&
-						(newTripForm!.controls['TripDesc'].dirty ||
-							newTripForm!.controls['TripDesc'].touched)
+						newTripForm!.controls['tripDesc'].invalid &&
+						(newTripForm!.controls['tripDesc'].dirty ||
+							newTripForm!.controls['tripDesc'].touched)
 					"
 					class="text-red-400"
 				>
@@ -124,15 +124,15 @@
 					Trip Start Date
 				</p>
 				<input
-					formControlName="TripStart"
+					formControlName="tripStart"
 					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
 					type="date"
 				/>
 				<div
 					*ngIf="
-						newTripForm!.controls['TripStart'].invalid &&
-						(newTripForm!.controls['TripStart'].dirty ||
-							newTripForm!.controls['TripStart'].touched)
+						newTripForm!.controls['tripStart'].invalid &&
+						(newTripForm!.controls['tripStart'].dirty ||
+							newTripForm!.controls['tripStart'].touched)
 					"
 					class="text-red-400"
 				>
@@ -144,15 +144,15 @@
 					Trip End Date
 				</p>
 				<input
-					formControlName="TripEnd"
+					formControlName="tripEnd"
 					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
 					type="date"
 				/>
 				<div
 					*ngIf="
-						newTripForm!.controls['TripEnd'].invalid &&
-						(newTripForm!.controls['TripEnd'].dirty ||
-							newTripForm!.controls['TripEnd'].touched)
+						newTripForm!.controls['tripEnd'].invalid &&
+						(newTripForm!.controls['tripEnd'].dirty ||
+							newTripForm!.controls['tripEnd'].touched)
 					"
 					class="text-red-400"
 				>

@@ -50,18 +50,18 @@
 <div class="bg-teal-400 mt-0">
 	<div class="bg-teal-200 py-4 shadow-lg mx-96 non-italic rounded-xl">
 		<h1 class="text-6xl flex pt-10 mb-6 font-bold ml-4">
-			Trip to {{ (trip | async)?.Name }}
+			Trip to {{ (trip | async)?.name }}
 		</h1>
 
 		<p class="ml-10 text-slate-500">
 			<b>Duration:</b>
-			{{ (trip | async)?.Start_Date }} -
-			{{ (trip | async)?.End_Date }}
+			{{ (trip | async)?.startDate }} -
+			{{ (trip | async)?.endDate }}
 		</p>
 		<div
 			class="flex justify-center text-lg mt-3 py-4 mx-10 non-italic pb-4"
 		>
-			{{ (trip | async)?.Desc }}
+			{{ (trip | async)?.desc }}
 		</div>
 	</div>
 

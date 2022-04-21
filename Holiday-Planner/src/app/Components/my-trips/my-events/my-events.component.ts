@@ -41,8 +41,8 @@ export class MyEventsComponent implements OnInit {
 			this.newEventForm = this.fb.group({
 				name: new FormControl("", Validators.required),
 				tag: new FormControl("", Validators.required),
-				end_Time: new FormControl("", Validators.required),
-				start_Time: new FormControl("", Validators.required),
+				endTime: new FormControl("", Validators.required),
+				startTime: new FormControl("", Validators.required),
 				cost: new FormControl("", Validators.required),
 			});
 			this.userStore
@@ -59,15 +59,15 @@ export class MyEventsComponent implements OnInit {
 		this.New = !this.New;
 	}
 	createEvent() {
-		const { name, tag, end_Time, start_Time, cost } =
+		const { name, tag, endTime, startTime, cost } =
 			this.newEventForm?.value;
 
 		this.fireService.createItineraryItem(
 			name,
 			tag,
 			this.id!,
-			end_Time,
-			start_Time,
+			endTime,
+			startTime,
 			cost
 		);
 		this.Events = this.fireService.getEvents(this.id!);

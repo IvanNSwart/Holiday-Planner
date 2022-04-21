@@ -17,7 +17,6 @@ export const reducer = createReducer<userState, Action>(
 	initialState,
 	on(loadLoginsSuccess, (state, action) => ({
 		...state,
-		loading: false,
 		user: action.user,
 	}))
 );

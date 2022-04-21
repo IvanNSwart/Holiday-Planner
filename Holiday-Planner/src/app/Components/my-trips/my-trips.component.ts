@@ -8,7 +8,7 @@ import {
 import { Router } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { ITrips } from "src/app/models/trips";
+import { ITrip } from "src/app/models/trip";
 import { IUser } from "src/app/models/user";
 import { AuthServiceService } from "src/app/services/auth-service.service";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
@@ -21,7 +21,7 @@ import * as UserSelectors from "src/app/store/selector/auth.selectors";
 	styleUrls: ["./my-trips.component.scss"],
 })
 export class MyTripsComponent implements OnInit {
-	Trips?: Observable<ITrips[]>;
+	Trips?: Observable<ITrip[]>;
 	newTripForm?: FormGroup;
 	New?: boolean;
 	user?: IUser;
@@ -35,27 +35,28 @@ export class MyTripsComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.newTripForm = this.fb.group({
-			TripName: new FormControl("", Validators.required),
-			TripDesc: new FormControl("", Validators.required),
-			TripStart: new FormControl("", Validators.required),
-			TripEnd: new FormControl("", Validators.required),
+			tripName: new FormControl("", Validators.required),
+			tripDesc: new FormControl("", Validators.required),
+			tripStart: new FormControl("", Validators.required),
+			tripEnd: new FormControl("", Validators.required),
 		});
 		this.Trips = this.firebaseService.getTrips();
+		this.Trips.subscribe((res) => console.log(res));
 		this.userStore
 			.pipe(select(UserSelectors.getAuthUser))
 			.subscribe((res) => (this.user = res));
 	}
-	identifyTrip(index: number, Trip: ITrips): string {
+	identifyTrip(index: number, Trip: ITrip): string {
 		return Trip.id;
 	}
 	createToggle() {
 		this.New = !this.New;
 	}
 	createTrip() {
-		const { TripName, TripDesc, TripStart, TripEnd } =
+		const { tripName, tripDesc, tripStart, tripEnd } =
 			this.newTripForm?.value;
 
-		this.firebaseService.createTrip(TripName, TripDesc, TripStart, TripEnd);
+		this.firebaseService.createTrip(tripName, tripDesc, tripStart, tripEnd);
 		this.Trips = this.firebaseService.getTrips();
 		this.newTripForm?.reset;
 		this.New = !this.New;

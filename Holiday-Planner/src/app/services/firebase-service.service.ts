@@ -3,7 +3,7 @@ import { AngularFirestore } from "@angular/fire/compat/firestore";
 
 import { map, Observable } from "rxjs";
 import { IItineraryItem } from "../models/itineraryItem";
-import { ITrips } from "../models/trips";
+import { ITrip } from "../models/trip";
 import { IUser } from "../models/user";
 import * as UserSelectors from "src/app/store/selector/auth.selectors";
 import { select, Store } from "@ngrx/store";
@@ -33,74 +33,61 @@ export class FirebaseServiceService {
 			.doc(`${this.user?.id}`)
 			.valueChanges();
 	}
-	getTrips(): Observable<ITrips[]> {
+	getTrips(): Observable<ITrip[]> {
 		return this.db
-			.collection<ITrips>("Trips", (ref) =>
-				ref.where("UserId", "==", `${this.user?.id}`)
+			.collection<ITrip>("Trips", (ref) =>
+				ref.where("userId", "==", `${this.user?.id}`)
 			)
 			.snapshotChanges()
 			.pipe(
 				map((change) =>
 					change.map((a) => {
 						const data = a.payload.doc.data();
-						let { id, Name, Desc, UserId } = data;
+						let { id } = data;
 						id = a.payload.doc.id;
-						return { id, Name, Desc, UserId } as ITrips;
+						return { ...data, id } as ITrip;
 					})
 				)
 			);
 	}
-	getTrip(ID: string) {
-		return this.db.collection<ITrips>("Trips").doc(`${ID}`).valueChanges();
+	getTrip(id: string) {
+		return this.db.collection<ITrip>("Trips").doc(`${id}`).valueChanges();
 	}
-	getEvents(Id: string): Observable<IItineraryItem[]> {
+	getEvents(tripId: string): Observable<IItineraryItem[]> {
 		return this.db
 			.collection<IItineraryItem>("Itinerary_Items", (ref) =>
-				ref.where("Trip_ID", "==", `${Id}`)
+				ref.where("tripId", "==", `${tripId}`)
 			)
 			.snapshotChanges()
 			.pipe(
 				map((change) =>
 					change.map((a) => {
 						const data = a.payload.doc.data();
-						let {
-							id,
-							Name,
-							Tag,
-							Trip_ID,
-							End_Time,
-							Start_Time,
-							Cost,
-						} = data;
+						let { id } = data;
 						id = a.payload.doc.id;
 						return {
+							...data,
 							id,
-							Name,
-							Tag,
-							Trip_ID,
-							End_Time,
-							Start_Time,
-							Cost,
 						} as IItineraryItem;
 					})
 				)
 			);
 	}
-	getEvent(ID: string) {
+	getEvent(tripId: string) {
 		return this.db
 			.collection<IItineraryItem>("Itinerary_Items")
-			.doc(`${ID}`)
+			.doc(`${tripId}`)
 			.valueChanges();
 	}
-	createTrip(Name: string, Desc: string, Start_Date: Date, End_Date: Date) {
+	createTrip(name: string, desc: string, startDate: Date, endDate: Date) {
 		return this.db
 			.collection("Trips")
 			.add({
-				Name: `${Name}`,
-				Desc: `${Desc}`,
-				UserId: this.user?.id,
-				End_Date: End_Date,
-				Start_Date: Start_Date,
+				name: `${name}`,
+				desc: `${desc}`,
+				userId: this.user?.id,
+				endDate: endDate,
+				startDate: startDate,
 			})
 			.then((docRef) => {
 				console.log("Document written with ID: ", docRef.id);
@@ -112,20 +99,20 @@ export class FirebaseServiceService {
 	createItineraryItem(
 		name: string,
 		tag: string,
-		trip_ID: string,
-		end_Time: Date,
-		start_Time: Date,
+		tripId: string,
+		endTime: Date,
+		startTime: Date,
 		cost: number
 	) {
 		return this.db
 			.collection("Itinerary_Items")
 			.add({
-				Name: name,
-				Tag: tag,
-				Trip_ID: trip_ID,
-				End_Time: end_Time,
-				Start_Time: start_Time,
-				Cost: cost,
+				name: name,
+				tag: tag,
+				tripId: tripId,
+				endTime: endTime,
+				startTime: startTime,
+				cost: cost,
 			})
 			.then((docRef) => {
 				console.log("Document written with ID: ", docRef.id);
@@ -134,10 +121,10 @@ export class FirebaseServiceService {
 				console.error("Error adding document: ", error);
 			});
 	}
-	deleteTrip(ID: string) {
+	deleteTrip(tripId: string) {
 		return this.db
 			.collection("Trips")
-			.doc(`${ID}`)
+			.doc(`${tripId}`)
 			.delete()
 			.then(() => {
 				console.log("Document successfully deleted!");
@@ -146,10 +133,10 @@ export class FirebaseServiceService {
 				console.error("Error removing document: ", error);
 			});
 	}
-	deleteEvent(ID: string) {
+	deleteEvent(eventId: string) {
 		return this.db
 			.collection("Itineray_Items")
-			.doc(`${ID}`)
+			.doc(`${eventId}`)
 			.delete()
 			.then(() => {
 				console.log("Document successfully deleted!");

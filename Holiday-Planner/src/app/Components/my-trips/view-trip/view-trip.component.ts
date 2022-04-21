@@ -2,7 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";
-import { ITrips } from "src/app/models/trips";
+import { ITrip } from "src/app/models/trip";
 import { IUser } from "src/app/models/user";
 import { AuthServiceService } from "src/app/services/auth-service.service";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
@@ -17,7 +17,7 @@ import * as UserSelectors from "src/app/store/selector/auth.selectors";
 export class ViewTripComponent implements OnInit {
 	id?: string;
 	sub: any;
-	trip?: Observable<ITrips | undefined>;
+	trip?: Observable<ITrip | undefined>;
 	user?: IUser;
 
 	constructor(

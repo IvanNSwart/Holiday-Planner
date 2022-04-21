@@ -23,6 +23,7 @@
 			<a
 				href="#responsive-header"
 				class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+				routerLink="/Home"
 			>
 				Calander
 			</a>
@@ -52,7 +53,7 @@
 		My Trips
 	</h1>
 
-	<div *ngFor="let trip of Trips | async; trackBy: identifyTrip">
+	<div *ngFor="let trip of Trips$ | async; trackBy: identifyTrip">
 		<a
 			class="bg-teal-200 flex justify-center mt-3 py-4 shadow-lg mx-96"
 			[routerLink]="['/MyTrips', trip.id]"

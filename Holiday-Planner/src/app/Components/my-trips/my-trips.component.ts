@@ -12,8 +12,9 @@ import { ITrip } from "src/app/models/trip";
 import { IUser } from "src/app/models/user";
 import { AuthServiceService } from "src/app/services/auth-service.service";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
-import { userState } from "src/app/store/reducer/auth.reducer";
+import { userState } from "src/app/store/reducer/planner.reducer";
 import * as UserSelectors from "src/app/store/selector/auth.selectors";
+import * as plannerActions from "src/app/store/actions/planner.actions";
 
 @Component({
 	selector: "app-my-trips",
@@ -21,7 +22,7 @@ import * as UserSelectors from "src/app/store/selector/auth.selectors";
 	styleUrls: ["./my-trips.component.scss"],
 })
 export class MyTripsComponent implements OnInit {
-	Trips?: Observable<ITrip[]>;
+	Trips$?: Observable<ITrip[]>;
 	newTripForm?: FormGroup;
 	New?: boolean;
 	user?: IUser;
@@ -40,8 +41,13 @@ export class MyTripsComponent implements OnInit {
 			tripStart: new FormControl("", Validators.required),
 			tripEnd: new FormControl("", Validators.required),
 		});
-		this.Trips = this.firebaseService.getTrips();
-		this.Trips.subscribe((res) => console.log(res));
+		//fetch trips
+		this.userStore.dispatch(plannerActions.getTrips());
+		//listen trips
+		this.Trips$ = this.userStore.pipe(select(UserSelectors.selectTrips));
+
+		this.Trips$ = this.firebaseService.getTrips();
+		this.Trips$.subscribe((res) => console.log(res));
 		this.userStore
 			.pipe(select(UserSelectors.getAuthUser))
 			.subscribe((res) => (this.user = res));
@@ -57,7 +63,7 @@ export class MyTripsComponent implements OnInit {
 			this.newTripForm?.value;
 
 		this.firebaseService.createTrip(tripName, tripDesc, tripStart, tripEnd);
-		this.Trips = this.firebaseService.getTrips();
+		this.Trips$ = this.firebaseService.getTrips();
 		this.newTripForm?.reset;
 		this.New = !this.New;
 	}

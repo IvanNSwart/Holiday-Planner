@@ -7,7 +7,7 @@ import { ITrip } from "../models/trip";
 import { IUser } from "../models/user";
 import * as UserSelectors from "src/app/store/selector/auth.selectors";
 import { select, Store } from "@ngrx/store";
-import { userState } from "../store/reducer/auth.reducer";
+import { userState } from "../store/reducer/planner.reducer";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 @Injectable({
 	providedIn: "root",

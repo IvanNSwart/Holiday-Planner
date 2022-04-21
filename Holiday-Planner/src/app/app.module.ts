@@ -19,7 +19,9 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
-import { authFeatureKey, reducer } from "./store/reducer/auth.reducer";
+import { authFeatureKey, reducer } from "./store/reducer/planner.reducer";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { FilterEventsPipe } from './pipes/filter-events.pipe';
 
 registerLocaleData(en);
 
@@ -29,6 +31,7 @@ registerLocaleData(en);
 		LoginComponent,
 		RegisterComponent,
 		NotfoundComponent,
+  FilterEventsPipe,
 	],
 	imports: [
 		BrowserModule,
@@ -43,6 +46,10 @@ registerLocaleData(en);
 		StoreModule.forRoot({}, {}),
 		EffectsModule.forRoot([]),
 		StoreModule.forFeature(authFeatureKey, reducer),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25,
+			logOnly: environment.production,
+		}),
 	],
 	providers: [{ provide: NZ_I18N, useValue: en_US }],
 	bootstrap: [AppComponent],

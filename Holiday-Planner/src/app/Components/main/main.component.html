@@ -21,7 +21,7 @@
 	<div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
 		<div class="text-sm lg:flex-grow">
 			<a
-				href="#responsive-header"
+				routerLink="/Home"
 				class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
 			>
 				Calander
@@ -49,10 +49,3 @@
 	</div>
 </nav>
 
-<div class="bg-teal-400 p-6">
-	<nz-calendar
-		[(ngModel)]="date"
-		[(nzMode)]="mode"
-		(nzPanelChange)="panelChange($event)"
-	></nz-calendar>
-</div>

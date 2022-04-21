@@ -7,8 +7,8 @@ import {
 	Validators,
 } from "@angular/forms";
 import { Store } from "@ngrx/store";
-import { userState } from "src/app/store/reducer/auth.reducer";
-import * as UserActions from "src/app/store/actions/login.actions";
+import { userState } from "src/app/store/reducer/planner.reducer";
+import * as UserActions from "src/app/store/actions/planner.actions";
 import { IUser } from "src/app/models/user";
 import { Router } from "@angular/router";
 
@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
 			.then((user) => {
 				console.log(user.user?.email + " is logged in");
 				this.userStore.dispatch(
-					UserActions.loadLoginsSuccess({
+					UserActions.setLoginSuccess({
 						user: {
 							id: user.user!.uid,
 							email: user.user!.email,

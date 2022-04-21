@@ -6,7 +6,7 @@ import { ITrip } from "src/app/models/trip";
 import { IUser } from "src/app/models/user";
 import { AuthServiceService } from "src/app/services/auth-service.service";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
-import { userState } from "src/app/store/reducer/auth.reducer";
+import { userState } from "src/app/store/reducer/planner.reducer";
 import * as UserSelectors from "src/app/store/selector/auth.selectors";
 
 @Component({

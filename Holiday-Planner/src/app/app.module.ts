@@ -19,7 +19,7 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { StoreModule } from "@ngrx/store";
 import { EffectsModule } from "@ngrx/effects";
 import { getFirestore, provideFirestore } from "@angular/fire/firestore";
-import { authFeatureKey, reducer } from "./store/reducer/auth.reducer";
+import { authFeatureKey, reducer } from "./store/reducer/planner.reducer";
 
 registerLocaleData(en);
 

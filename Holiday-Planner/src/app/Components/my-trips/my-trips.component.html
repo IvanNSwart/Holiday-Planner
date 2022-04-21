@@ -35,10 +35,7 @@
 			>
 				MyTrips
 			</a>
-			<a
-				href="#"
-				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-			></a>
+
 			<a
 				href="#"
 				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
@@ -120,6 +117,46 @@
 					class="text-red-400"
 				>
 					Enter a trip description
+				</div>
+				<p
+					class="text-gray-800 font-semibold text-md flex justify-center"
+				>
+					Trip Start Date
+				</p>
+				<input
+					formControlName="TripStart"
+					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+					type="date"
+				/>
+				<div
+					*ngIf="
+						newTripForm!.controls['TripStart'].invalid &&
+						(newTripForm!.controls['TripStart'].dirty ||
+							newTripForm!.controls['TripStart'].touched)
+					"
+					class="text-red-400"
+				>
+					Select a date
+				</div>
+				<p
+					class="text-gray-800 font-semibold text-md flex justify-center"
+				>
+					Trip End Date
+				</p>
+				<input
+					formControlName="TripEnd"
+					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+					type="date"
+				/>
+				<div
+					*ngIf="
+						newTripForm!.controls['TripEnd'].invalid &&
+						(newTripForm!.controls['TripEnd'].dirty ||
+							newTripForm!.controls['TripEnd'].touched)
+					"
+					class="text-red-400"
+				>
+					Select A Date
 				</div>
 				<div class="flex justify-center">
 					<button

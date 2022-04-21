@@ -92,13 +92,15 @@ export class FirebaseServiceService {
 			.doc(`${ID}`)
 			.valueChanges();
 	}
-	createTrip(Name: string, Desc: string) {
+	createTrip(Name: string, Desc: string, Start_Date: Date, End_Date: Date) {
 		return this.db
 			.collection("Trips")
 			.add({
 				Name: `${Name}`,
 				Desc: `${Desc}`,
-				UserId: `${this.user?.id}`,
+				UserId: this.user?.id,
+				End_Date: End_Date,
+				Start_Date: Start_Date,
 			})
 			.then((docRef) => {
 				console.log("Document written with ID: ", docRef.id);

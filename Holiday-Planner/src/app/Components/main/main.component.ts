@@ -6,6 +6,7 @@ import * as UserSelectors from "src/app/store/selector/auth.selectors";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
 import { Router } from "@angular/router";
 import { AuthServiceService } from "src/app/services/auth-service.service";
+import { NzCalendarMode, NzCalendarModule } from "ng-zorro-antd/calendar";
 
 @Component({
 	selector: "app-main",
@@ -14,6 +15,8 @@ import { AuthServiceService } from "src/app/services/auth-service.service";
 })
 export class MainComponent implements OnInit {
 	user?: IUser;
+	date = new Date(2012, 11, 21);
+	mode: NzCalendarMode = "month";
 
 	constructor(
 		private userStore: Store<userState>,
@@ -34,5 +37,8 @@ export class MainComponent implements OnInit {
 	}
 	logout() {
 		return this.authService.signOut();
+	}
+	panelChange(change: { date: Date; mode: string }): void {
+		console.log(change.date, change.mode);
 	}
 }

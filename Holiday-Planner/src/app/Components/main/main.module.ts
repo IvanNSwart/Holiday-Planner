@@ -11,6 +11,8 @@ import { getFirestore } from "firebase/firestore";
 import { Firestore, provideFirestore } from "@angular/fire/firestore";
 import { StoreModule } from "@ngrx/store";
 import { authFeatureKey, reducer } from "src/app/store/reducer/auth.reducer";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgZorroModule } from "src/app/modules/ng-zorro/ng-zorro.module";
 
 @NgModule({
 	declarations: [MainComponent],
@@ -20,6 +22,7 @@ import { authFeatureKey, reducer } from "src/app/store/reducer/auth.reducer";
 		StoreModule.forFeature(authFeatureKey, reducer),
 		AngularFireModule.initializeApp(environment.firebase),
 		AngularFirestoreModule,
+		NgZorroModule,
 	],
 })
 export class MainModule {}

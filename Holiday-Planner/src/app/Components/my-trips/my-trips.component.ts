@@ -37,6 +37,8 @@ export class MyTripsComponent implements OnInit {
 		this.newTripForm = this.fb.group({
 			TripName: new FormControl("", Validators.required),
 			TripDesc: new FormControl("", Validators.required),
+			TripStart: new FormControl("", Validators.required),
+			TripEnd: new FormControl("", Validators.required),
 		});
 		this.Trips = this.firebaseService.getTrips();
 		this.userStore
@@ -50,9 +52,10 @@ export class MyTripsComponent implements OnInit {
 		this.New = !this.New;
 	}
 	createTrip() {
-		const { TripName, TripDesc } = this.newTripForm?.value;
+		const { TripName, TripDesc, TripStart, TripEnd } =
+			this.newTripForm?.value;
 
-		this.firebaseService.createTrip(TripName, TripDesc);
+		this.firebaseService.createTrip(TripName, TripDesc, TripStart, TripEnd);
 		this.Trips = this.firebaseService.getTrips();
 		this.newTripForm?.reset;
 		this.New = !this.New;

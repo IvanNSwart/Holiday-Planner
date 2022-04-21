@@ -3,4 +3,6 @@ export interface ITrips {
 	Name: string;
 	Desc: string;
 	UserId: string;
+	Start_Date: Date;
+	End_Date: Date;
 }

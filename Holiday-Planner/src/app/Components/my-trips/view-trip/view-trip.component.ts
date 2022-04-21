@@ -19,6 +19,7 @@ export class ViewTripComponent implements OnInit {
 	sub: any;
 	trip?: Observable<ITrips | undefined>;
 	user?: IUser;
+
 	constructor(
 		private route: ActivatedRoute,
 		private fireService: FirebaseServiceService,

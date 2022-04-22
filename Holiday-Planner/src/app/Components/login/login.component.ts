@@ -48,7 +48,6 @@ export class LoginComponent implements OnInit {
 		this.auth
 			.signInWithEmailAndPassword(email, password)
 			.then((user) => {
-				console.log(user.user?.email + " is logged in");
 				this.userStore.dispatch(
 					UserActions.setLoginSuccess({
 						user: {

@@ -38,10 +38,10 @@ export class ViewTripComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.updateTripForm = this.fb.group({
-			tripName: new FormControl("", Validators.required),
-			tripDesc: new FormControl("", Validators.required),
-			tripStart: new FormControl("", Validators.required),
-			tripEnd: new FormControl("", Validators.required),
+			tripName: new FormControl(),
+			tripDesc: new FormControl(),
+			tripStart: new FormControl(),
+			tripEnd: new FormControl(),
 		});
 		this.sub = this.route.params.subscribe((params) => {
 			this.id = params["id"];

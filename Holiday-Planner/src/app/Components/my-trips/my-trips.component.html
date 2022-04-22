@@ -23,6 +23,7 @@
 			<a
 				href="#responsive-header"
 				class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
+				routerLink="/Home"
 			>
 				Calander
 			</a>
@@ -35,10 +36,7 @@
 			>
 				MyTrips
 			</a>
-			<a
-				href="#"
-				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
-			></a>
+
 			<a
 				href="#"
 				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
@@ -55,12 +53,12 @@
 		My Trips
 	</h1>
 
-	<div *ngFor="let trip of Trips | async; trackBy: identifyTrip">
+	<div *ngFor="let trip of Trips$ | async; trackBy: identifyTrip">
 		<a
 			class="bg-teal-200 flex justify-center mt-3 py-4 shadow-lg mx-96"
 			[routerLink]="['/MyTrips', trip.id]"
 		>
-			{{ trip.Name }}
+			{{ trip.name }}
 		</a>
 	</div>
 	<a
@@ -89,14 +87,14 @@
 					Trip Name:
 				</p>
 				<input
-					formControlName="TripName"
+					formControlName="tripName"
 					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
 				/>
 				<div
 					*ngIf="
-						newTripForm!.controls['TripName'].invalid &&
-						(newTripForm!.controls['TripName'].dirty ||
-							newTripForm!.controls['TripName'].touched)
+						newTripForm!.controls['tripName'].invalid &&
+						(newTripForm!.controls['tripName'].dirty ||
+							newTripForm!.controls['tripName'].touched)
 					"
 					class="text-red-400"
 				>
@@ -108,18 +106,58 @@
 					Trip Desc
 				</p>
 				<input
-					formControlName="TripDesc"
+					formControlName="tripDesc"
 					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
 				/>
 				<div
 					*ngIf="
-						newTripForm!.controls['TripDesc'].invalid &&
-						(newTripForm!.controls['TripDesc'].dirty ||
-							newTripForm!.controls['TripDesc'].touched)
+						newTripForm!.controls['tripDesc'].invalid &&
+						(newTripForm!.controls['tripDesc'].dirty ||
+							newTripForm!.controls['tripDesc'].touched)
 					"
 					class="text-red-400"
 				>
 					Enter a trip description
+				</div>
+				<p
+					class="text-gray-800 font-semibold text-md flex justify-center"
+				>
+					Trip Start Date
+				</p>
+				<input
+					formControlName="tripStart"
+					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+					type="date"
+				/>
+				<div
+					*ngIf="
+						newTripForm!.controls['tripStart'].invalid &&
+						(newTripForm!.controls['tripStart'].dirty ||
+							newTripForm!.controls['tripStart'].touched)
+					"
+					class="text-red-400"
+				>
+					Select a date
+				</div>
+				<p
+					class="text-gray-800 font-semibold text-md flex justify-center"
+				>
+					Trip End Date
+				</p>
+				<input
+					formControlName="tripEnd"
+					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+					type="date"
+				/>
+				<div
+					*ngIf="
+						newTripForm!.controls['tripEnd'].invalid &&
+						(newTripForm!.controls['tripEnd'].dirty ||
+							newTripForm!.controls['tripEnd'].touched)
+					"
+					class="text-red-400"
+				>
+					Select A Date
 				</div>
 				<div class="flex justify-center">
 					<button

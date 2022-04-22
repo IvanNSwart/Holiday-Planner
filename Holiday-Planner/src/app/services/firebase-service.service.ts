@@ -3,11 +3,11 @@ import { AngularFirestore } from "@angular/fire/compat/firestore";
 
 import { map, Observable } from "rxjs";
 import { IItineraryItem } from "../models/itineraryItem";
-import { ITrips } from "../models/trips";
+import { ITrip } from "../models/trip";
 import { IUser } from "../models/user";
 import * as UserSelectors from "src/app/store/selector/auth.selectors";
 import { select, Store } from "@ngrx/store";
-import { userState } from "../store/reducer/auth.reducer";
+import { userState } from "../store/reducer/planner.reducer";
 import { AngularFireAuth } from "@angular/fire/compat/auth";
 @Injectable({
 	providedIn: "root",
@@ -17,8 +17,7 @@ export class FirebaseServiceService {
 
 	constructor(
 		private db: AngularFirestore,
-		private userStore: Store<userState>,
-		private auth: AngularFireAuth
+		private userStore: Store<userState>
 	) {
 		this.userStore
 			.pipe(select(UserSelectors.getAuthUser))
@@ -33,127 +32,159 @@ export class FirebaseServiceService {
 			.doc(`${this.user?.id}`)
 			.valueChanges();
 	}
-	getTrips(): Observable<ITrips[]> {
+	getTrips(): Observable<ITrip[]> {
 		return this.db
-			.collection<ITrips>("Trips", (ref) =>
-				ref.where("UserId", "==", `${this.user?.id}`)
+			.collection<ITrip>("Trips", (ref) =>
+				ref.where("userId", "==", `${this.user?.id}`)
 			)
 			.snapshotChanges()
 			.pipe(
 				map((change) =>
 					change.map((a) => {
 						const data = a.payload.doc.data();
-						let { id, Name, Desc, UserId } = data;
+						let { id } = data;
 						id = a.payload.doc.id;
-						return { id, Name, Desc, UserId } as ITrips;
+						return { ...data, id } as ITrip;
 					})
 				)
 			);
 	}
-	getTrip(ID: string) {
-		return this.db.collection<ITrips>("Trips").doc(`${ID}`).valueChanges();
+	getTrip(id: string) {
+		return this.db.collection<ITrip>("Trips").doc(`${id}`).valueChanges();
 	}
-	getEvents(Id: string): Observable<IItineraryItem[]> {
+	getEvents(tripId: string): Observable<IItineraryItem[]> {
 		return this.db
 			.collection<IItineraryItem>("Itinerary_Items", (ref) =>
-				ref.where("Trip_ID", "==", `${Id}`)
+				ref.where("tripId", "==", `${tripId}`)
 			)
 			.snapshotChanges()
 			.pipe(
 				map((change) =>
 					change.map((a) => {
 						const data = a.payload.doc.data();
-						let {
-							id,
-							Name,
-							Tag,
-							Trip_ID,
-							End_Time,
-							Start_Time,
-							Cost,
-						} = data;
+						let { id } = data;
 						id = a.payload.doc.id;
 						return {
+							...data,
 							id,
-							Name,
-							Tag,
-							Trip_ID,
-							End_Time,
-							Start_Time,
-							Cost,
 						} as IItineraryItem;
 					})
 				)
 			);
 	}
-	getEvent(ID: string) {
+	getEvent(tripId: string) {
 		return this.db
 			.collection<IItineraryItem>("Itinerary_Items")
-			.doc(`${ID}`)
+			.doc(`${tripId}`)
 			.valueChanges();
 	}
-	createTrip(Name: string, Desc: string) {
+	createTrip(name: string, desc: string, startDate: Date, endDate: Date) {
 		return this.db
 			.collection("Trips")
 			.add({
-				Name: `${Name}`,
-				Desc: `${Desc}`,
-				UserId: `${this.user?.id}`,
+				name: `${name}`,
+				desc: `${desc}`,
+				userId: this.user?.id,
+				endDate: endDate,
+				startDate: startDate,
 			})
 			.then((docRef) => {
-				console.log("Document written with ID: ", docRef.id);
+				alert("Success");
 			})
 			.catch((error) => {
-				console.error("Error adding document: ", error);
+				alert("error");
 			});
 	}
 	createItineraryItem(
 		name: string,
 		tag: string,
-		trip_ID: string,
-		end_Time: Date,
-		start_Time: Date,
+		tripId: string,
+		endTime: Date,
+		startTime: Date,
 		cost: number
 	) {
 		return this.db
 			.collection("Itinerary_Items")
 			.add({
-				Name: name,
-				Tag: tag,
-				Trip_ID: trip_ID,
-				End_Time: end_Time,
-				Start_Time: start_Time,
-				Cost: cost,
+				name: name,
+				tag: tag,
+				tripId: tripId,
+				endTime: endTime,
+				startTime: startTime,
+				cost: cost,
 			})
 			.then((docRef) => {
-				console.log("Document written with ID: ", docRef.id);
+				alert("Success");
 			})
 			.catch((error) => {
-				console.error("Error adding document: ", error);
+				alert("error");
 			});
 	}
-	deleteTrip(ID: string) {
+	updateItineraryItem(
+		eventId: string,
+		name: string,
+		tag: string,
+		endTime: Date,
+		startTime: Date,
+		cost: number
+	) {
+		return this.db
+			.collection("Itinerary_Items")
+			.doc(`${eventId}`)
+			.update({
+				name: name,
+				tag: tag,
+				endTime: endTime,
+				startTime: startTime,
+				cost: cost,
+			})
+			.then((docRef) => {
+				alert("Success");
+			})
+			.catch((error) => {
+				alert("error");
+			});
+	}
+	updateTrip(
+		tripId: string,
+		name: string,
+		desc: string,
+		startDate: Date,
+		endDate: Date
+	) {
 		return this.db
 			.collection("Trips")
-			.doc(`${ID}`)
-			.delete()
-			.then(() => {
-				console.log("Document successfully deleted!");
-			})
-			.catch((error) => {
-				console.error("Error removing document: ", error);
+			.doc(`${tripId}`)
+			.update({
+				name: `${name}`,
+				desc: `${desc}`,
+				userId: this.user?.id,
+				endDate: endDate,
+				startDate: startDate,
 			});
 	}
-	deleteEvent(ID: string) {
+	deleteTrip(tripId: string) {
 		return this.db
-			.collection("Itineray_Items")
-			.doc(`${ID}`)
+			.collection("Trips")
+			.doc(`${tripId}`)
 			.delete()
 			.then(() => {
-				console.log("Document successfully deleted!");
+				alert("SUCCESS");
 			})
 			.catch((error) => {
-				console.error("Error removing document: ", error);
+				alert("error");
+			});
+	}
+	deleteEvent(eventId: string) {
+		return this.db
+			.collection("Itineray_Items")
+			.doc(`${eventId}`)
+			.delete()
+			.then(() => {
+				alert("SUCCESS");
+			})
+			.catch((error) => {
+				alert("error");
 			});
 	}
 }

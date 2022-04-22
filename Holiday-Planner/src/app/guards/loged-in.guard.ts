@@ -6,8 +6,7 @@ import {
 	RouterStateSnapshot,
 	UrlTree,
 } from "@angular/router";
-import { map, Observable, take } from "rxjs";
-import { AuthServiceService } from "../services/auth-service.service";
+import { map, Observable } from "rxjs";
 import { FirebaseServiceService } from "../services/firebase-service.service";
 
 @Injectable({
@@ -16,7 +15,6 @@ import { FirebaseServiceService } from "../services/firebase-service.service";
 export class LogedInGuard implements CanActivate {
 	constructor(
 		private router: Router,
-		private authService: AuthServiceService,
 		private fireService: FirebaseServiceService
 	) {}
 

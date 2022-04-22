@@ -21,7 +21,7 @@
 	<div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
 		<div class="text-sm lg:flex-grow">
 			<a
-				href="#responsive-header"
+				routerLink="/Home"
 				class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
 			>
 				Calander
@@ -40,13 +40,39 @@
 				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
 				>{{ user?.email }}</a
 			>
-			<a class="ml-2 bg-teal-200 text-white p-2" (click)="logout()"
+			<a
+				class="ml-2 bg-teal-200 text-white p-2 rounded-xl"
+				(click)="logout()"
 				>Sign Out</a
 			>
 		</div>
 	</div>
 </nav>
-
-<div class="bg-teal-400 grid place-items-center h-screen">
-	<h1 class="text-7xl">Welcome to your Holiday Planner</h1>
+<div class="bg-teal-400 p-6">
+	<nz-calendar
+		[(nzMode)]="mode"
+		(nzPanelChange)="panelChange($event)"
+		class="rounded-md"
+	>
+		<ul *nzDateCell="let date" class="events">
+			<ng-container [ngSwitch]="date">
+				<li *ngFor="let trip of Trips$ | async">
+					<ng-container
+						*ngIf="
+							(trip.startDate | date: 'shortDate') ===
+							(date | date: 'shortDate')
+						"
+					>
+						<nz-badge
+							[nzStatus]="trip.name"
+							[nzText]="trip.name"
+							[routerLink]="['/MyTrips', trip.id]"
+						>
+							Trip Start</nz-badge
+						>
+					</ng-container>
+				</li>
+			</ng-container>
+		</ul>
+	</nz-calendar>
 </div>

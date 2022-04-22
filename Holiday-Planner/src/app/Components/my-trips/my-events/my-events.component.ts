@@ -12,7 +12,7 @@ import { IItineraryItem } from "src/app/models/itineraryItem";
 import { IUser } from "src/app/models/user";
 import { AuthServiceService } from "src/app/services/auth-service.service";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
-import { userState } from "src/app/store/reducer/auth.reducer";
+import { userState } from "src/app/store/reducer/planner.reducer";
 import * as UserSelectors from "src/app/store/selector/auth.selectors";
 
 @Component({
@@ -41,8 +41,8 @@ export class MyEventsComponent implements OnInit {
 			this.newEventForm = this.fb.group({
 				name: new FormControl("", Validators.required),
 				tag: new FormControl("", Validators.required),
-				end_Time: new FormControl("", Validators.required),
-				start_Time: new FormControl("", Validators.required),
+				endTime: new FormControl("", Validators.required),
+				startTime: new FormControl("", Validators.required),
 				cost: new FormControl("", Validators.required),
 			});
 			this.userStore
@@ -59,15 +59,15 @@ export class MyEventsComponent implements OnInit {
 		this.New = !this.New;
 	}
 	createEvent() {
-		const { name, tag, end_Time, start_Time, cost } =
+		const { name, tag, endTime, startTime, cost } =
 			this.newEventForm?.value;
 
 		this.fireService.createItineraryItem(
 			name,
 			tag,
 			this.id!,
-			end_Time,
-			start_Time,
+			endTime,
+			startTime,
 			cost
 		);
 		this.Events = this.fireService.getEvents(this.id!);

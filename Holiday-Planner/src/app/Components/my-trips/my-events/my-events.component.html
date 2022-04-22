@@ -7,8 +7,8 @@
 			class="bg-teal-200 flex justify-between mt-3 py-4 shadow-lg mx-96 px-4"
 			[routerLink]="['event', event.id]"
 		>
-			<p class="font-bold">{{ event.Name }}</p>
-			<p>R{{ event.Cost }}</p>
+			<p class="font-bold">{{ event.name }}</p>
+			<p>R{{ event.cost }}</p>
 		</a>
 	</div>
 	<a
@@ -66,7 +66,7 @@
 					</p>
 					<input
 						type="datetime-local"
-						formControlName="start_Time"
+						formControlName="startTime"
 						class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
 					/>
 					<p
@@ -76,7 +76,7 @@
 					</p>
 					<input
 						type="datetime-local"
-						formControlName="end_Time"
+						formControlName="endTime"
 						class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
 					/>
 					<p
@@ -87,6 +87,7 @@
 					<input
 						formControlName="cost"
 						class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+						type="number"
 					/>
 					<div class="flex justify-center">
 						<button

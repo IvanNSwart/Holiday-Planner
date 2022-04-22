@@ -4,8 +4,6 @@ import { MyTripsComponent } from "./my-trips.component";
 import { MyTripsRoutingModule } from "./my-trips-routing.module";
 import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFirestoreModule } from "@angular/fire/compat/firestore";
-import { EffectsModule } from "@ngrx/effects";
-import { LoginEffects } from "src/app/store/effects/planner.effects";
 import { environment } from "src/environments/environment";
 import { ViewTripComponent } from "./view-trip/view-trip.component";
 import { MyEventsComponent } from "./my-events/my-events.component";

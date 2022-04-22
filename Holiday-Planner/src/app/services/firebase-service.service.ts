@@ -17,8 +17,7 @@ export class FirebaseServiceService {
 
 	constructor(
 		private db: AngularFirestore,
-		private userStore: Store<userState>,
-		private auth: AngularFireAuth
+		private userStore: Store<userState>
 	) {
 		this.userStore
 			.pipe(select(UserSelectors.getAuthUser))
@@ -90,10 +89,10 @@ export class FirebaseServiceService {
 				startDate: startDate,
 			})
 			.then((docRef) => {
-				console.log("Document written with ID: ", docRef.id);
+				alert("Success");
 			})
 			.catch((error) => {
-				console.error("Error adding document: ", error);
+				alert("error");
 			});
 	}
 	createItineraryItem(
@@ -170,10 +169,10 @@ export class FirebaseServiceService {
 			.doc(`${tripId}`)
 			.delete()
 			.then(() => {
-				console.log("Document successfully deleted!");
+				alert("SUCCESS");
 			})
 			.catch((error) => {
-				console.error("Error removing document: ", error);
+				alert("error");
 			});
 	}
 	deleteEvent(eventId: string) {
@@ -182,10 +181,10 @@ export class FirebaseServiceService {
 			.doc(`${eventId}`)
 			.delete()
 			.then(() => {
-				console.log("Document successfully deleted!");
+				alert("SUCCESS");
 			})
 			.catch((error) => {
-				console.error("Error removing document: ", error);
+				alert("error");
 			});
 	}
 }

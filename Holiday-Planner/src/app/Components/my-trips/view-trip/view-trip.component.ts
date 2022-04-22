@@ -1,10 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import {
-	FormBuilder,
-	FormControl,
-	FormGroup,
-	Validators,
-} from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";

@@ -5,7 +5,7 @@ import {
 	FormGroup,
 	Validators,
 } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { IItineraryItem } from "src/app/models/itineraryItem";

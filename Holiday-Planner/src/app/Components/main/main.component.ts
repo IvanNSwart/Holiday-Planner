@@ -6,7 +6,7 @@ import * as UserSelectors from "src/app/store/selector/auth.selectors";
 import { FirebaseServiceService } from "src/app/services/firebase-service.service";
 import { Router } from "@angular/router";
 import { AuthServiceService } from "src/app/services/auth-service.service";
-import { NzCalendarMode, NzCalendarModule } from "ng-zorro-antd/calendar";
+import { NzCalendarMode } from "ng-zorro-antd/calendar";
 import { Observable } from "rxjs";
 import { ITrip } from "src/app/models/trip";
 

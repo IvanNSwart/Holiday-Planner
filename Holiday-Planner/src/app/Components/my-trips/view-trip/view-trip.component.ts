@@ -1,4 +1,10 @@
 import { Component, OnInit } from "@angular/core";
+import {
+	FormBuilder,
+	FormControl,
+	FormGroup,
+	Validators,
+} from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { select, Store } from "@ngrx/store";
 import { Observable } from "rxjs";
@@ -19,15 +25,24 @@ export class ViewTripComponent implements OnInit {
 	sub: any;
 	trip?: Observable<ITrip | undefined>;
 	user?: IUser;
+	update?: boolean;
+	updateTripForm?: FormGroup;
 
 	constructor(
 		private route: ActivatedRoute,
 		private fireService: FirebaseServiceService,
 		private authService: AuthServiceService,
-		private userStore: Store<userState>
+		private userStore: Store<userState>,
+		private fb: FormBuilder
 	) {}
 
 	ngOnInit(): void {
+		this.updateTripForm = this.fb.group({
+			tripName: new FormControl("", Validators.required),
+			tripDesc: new FormControl("", Validators.required),
+			tripStart: new FormControl("", Validators.required),
+			tripEnd: new FormControl("", Validators.required),
+		});
 		this.sub = this.route.params.subscribe((params) => {
 			this.id = params["id"];
 			this.trip = this.fireService.getTrip(this.id!);
@@ -38,6 +53,21 @@ export class ViewTripComponent implements OnInit {
 	}
 	deleteTrip() {
 		this.fireService.deleteTrip(this.id!);
+	}
+	updateTrip() {
+		const { tripName, tripDesc, tripStart, tripEnd } =
+			this.updateTripForm?.value;
+		this.fireService.updateTrip(
+			this.id!,
+			tripName,
+			tripDesc,
+			tripStart,
+			tripEnd
+		);
+		this.update = !this.update;
+	}
+	updateToggle() {
+		this.update = !this.update;
 	}
 	logout() {
 		return this.authService.signOut();

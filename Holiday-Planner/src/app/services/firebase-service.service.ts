@@ -115,10 +115,53 @@ export class FirebaseServiceService {
 				cost: cost,
 			})
 			.then((docRef) => {
-				console.log("Document written with ID: ", docRef.id);
+				alert("Success");
 			})
 			.catch((error) => {
-				console.error("Error adding document: ", error);
+				alert("error");
+			});
+	}
+	updateItineraryItem(
+		eventId: string,
+		name: string,
+		tag: string,
+		endTime: Date,
+		startTime: Date,
+		cost: number
+	) {
+		return this.db
+			.collection("Itinerary_Items")
+			.doc(`${eventId}`)
+			.update({
+				name: name,
+				tag: tag,
+				endTime: endTime,
+				startTime: startTime,
+				cost: cost,
+			})
+			.then((docRef) => {
+				alert("Success");
+			})
+			.catch((error) => {
+				alert("error");
+			});
+	}
+	updateTrip(
+		tripId: string,
+		name: string,
+		desc: string,
+		startDate: Date,
+		endDate: Date
+	) {
+		return this.db
+			.collection("Trips")
+			.doc(`${tripId}`)
+			.update({
+				name: `${name}`,
+				desc: `${desc}`,
+				userId: this.user?.id,
+				endDate: endDate,
+				startDate: startDate,
 			});
 	}
 	deleteTrip(tripId: string) {

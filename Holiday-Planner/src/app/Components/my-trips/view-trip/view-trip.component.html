@@ -48,7 +48,7 @@
 		</div>
 	</div>
 </nav>
-<div class="bg-teal-400 mt-0">
+<div class="bg-teal-400 h-full" *ngIf="!update">
 	<div class="bg-teal-200 py-4 shadow-lg mx-96 non-italic rounded-xl">
 		<h1 class="text-6xl flex pt-10 mb-6 font-bold ml-4">
 			Trip to {{ (trip | async)?.name }}
@@ -68,6 +68,12 @@
 
 	<div class="flex justify-center mt-4">
 		<button
+			(click)="updateToggle()"
+			class="bg-yellow-300 px-6 py-2 rounded-xl mr-4"
+		>
+			Update
+		</button>
+		<button
 			class="text-white bg-red-400 px-6 py-2 rounded-md"
 			(click)="deleteTrip()"
 			[routerLink]="['/MyTrips']"
@@ -75,6 +81,100 @@
 			Delete trip
 		</button>
 	</div>
+	<app-my-events></app-my-events>
 </div>
 
-<app-my-events></app-my-events>
+<div
+	class="h-screen bg-teal-400 flex justify-center items-center"
+	*ngIf="update"
+>
+	<div class="lg:w-2/5 md:w-1/2 w-2/3">
+		<div class="bg-teal-200 h-full p-10 rounded-lg shadow-lg">
+			<button
+				(click)="updateToggle()"
+				class="bg-teal-400 px-10 py-3 rounded-xl"
+			>
+				Back
+			</button>
+			<h1 class="text-3xl text-white flex justify-center pt-4 mb-10">
+				Update Trip
+			</h1>
+			<form [formGroup]="updateTripForm!" class="">
+				<p
+					class="text-gray-800 font-semibold text-md flex justify-center"
+				>
+					Trip Name:
+				</p>
+				<input
+					formControlName="tripName"
+					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+					value="{{ (trip | async)?.name }}"
+				/>
+				<div
+					*ngIf="updateTripForm!.controls['tripName'].invalid"
+					class="text-red-400"
+				>
+					Enter a trip Name
+				</div>
+				<p
+					class="text-gray-800 font-semibold text-md flex justify-center"
+				>
+					Trip Desc
+				</p>
+				<input
+					formControlName="tripDesc"
+					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+					value="{{ (trip | async)?.desc }}"
+				/>
+				<div
+					*ngIf="updateTripForm!.controls['tripDesc'].invalid"
+					class="text-red-400"
+				>
+					Enter a trip description
+				</div>
+				<p
+					class="text-gray-800 font-semibold text-md flex justify-center"
+				>
+					Trip Start Date
+				</p>
+				<input
+					formControlName="tripStart"
+					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+					type="date"
+					value="{{ (trip | async)?.startDate }}"
+				/>
+				<div
+					*ngIf="updateTripForm!.controls['tripStart'].invalid"
+					class="text-red-400"
+				>
+					Select a date
+				</div>
+				<p
+					class="text-gray-800 font-semibold text-md flex justify-center"
+				>
+					Trip End Date
+				</p>
+				<input
+					formControlName="tripEnd"
+					class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+					type="date"
+					value="{{ (trip | async)?.endDate }}"
+				/>
+				<div
+					*ngIf="updateTripForm!.controls['tripEnd'].invalid"
+					class="text-red-400"
+				>
+					Select A Date
+				</div>
+				<div class="flex justify-center">
+					<button
+						(click)="updateTrip()"
+						class="bg-teal-400 px-10 py-3 rounded-xl"
+					>
+						Update
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

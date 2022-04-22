@@ -47,7 +47,7 @@
 		</div>
 	</div>
 </nav>
-<div class="bg-teal-400 h-full mt-0">
+<div class="bg-teal-400 h-full mt-0" *ngIf="!update">
 	<div class="bg-teal-200 py-4 shadow-lg mx-96 non-italic rounded-xl">
 		<p class="flex justify-end text-sm font-medium mr-4">
 			{{ (Event | async)?.tag }}
@@ -70,11 +70,105 @@
 
 	<div class="flex justify-center mt-4">
 		<button
-			class="text-red-400"
+			(click)="updateToggle()"
+			class="bg-yellow-300 px-6 py-2 rounded-md mr-4"
+		>
+			Update
+		</button>
+		<button
+			class="text-white bg-red-400 px-6 py-2 rounded-md"
 			(click)="deleteEvent()"
 			[routerLink]="['/MyTrips']"
 		>
 			Delete trip
 		</button>
+	</div>
+</div>
+<div class="bg-teal-400 h-full" *ngIf="update">
+	<div class="h-screen bg-teal-400 flex justify-center items-center">
+		<div class="lg:w-2/5 md:w-1/2 w-2/3">
+			<div
+				class="bg-teal-200 h-full p-10 rounded-lg shadow-lg"
+				*ngIf="update"
+			>
+				<button
+					(click)="updateToggle()"
+					class="bg-teal-400 px-10 py-3 rounded-xl"
+				>
+					Back
+				</button>
+				<h1 class="text-3xl text-white flex justify-center pt-10 mb-10">
+					Update Event
+				</h1>
+				<form [formGroup]="updateEventForm!">
+					<p
+						class="text-gray-800 font-semibold text-md flex justify-center"
+					>
+						Item Name:
+					</p>
+					<input
+						formControlName="name"
+						class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+						value="{{ (Event | async)?.name }}"
+					/>
+					<p
+						class="text-gray-800 font-semibold text-md flex justify-center"
+					>
+						Item tag
+					</p>
+					<select
+						formControlName="tag"
+						class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+						value="{{ (Event | async)?.tag }}"
+					>
+						<option value="Travel Event">Travel Event</option>
+						<option value="Destination Event">
+							Destination Event
+						</option>
+					</select>
+					<p
+						class="text-gray-800 font-semibold text-md flex justify-center"
+					>
+						Start Date:
+					</p>
+					<input
+						type="datetime-local"
+						formControlName="startTime"
+						class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+						value="{{ (Event | async)?.startTime }}"
+					/>
+					<p
+						class="text-gray-800 font-semibold text-md flex justify-center"
+					>
+						End Date:
+					</p>
+					<input
+						type="datetime-local"
+						formControlName="endTime"
+						class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+						value="{{ (Event | async)?.endTime }}"
+					/>
+					<p
+						class="text-gray-800 font-semibold text-md flex justify-center"
+					>
+						Item cost in rands
+					</p>
+					<input
+						formControlName="cost"
+						class="flex justify-center w-full rounded-xl h-8 mb-4 mt-4 text-center"
+						type="number"
+						value="{{ (Event | async)?.cost }}"
+					/>
+					<div class="flex justify-center">
+						<button
+							(click)="updateEvent()"
+							class="bg-teal-400 px-10 py-3 rounded-xl"
+						>
+							Update
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 </div>

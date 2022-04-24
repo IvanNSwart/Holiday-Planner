@@ -6,4 +6,5 @@ export interface IItineraryItem {
 	endTime: Date;
 	startTime: Date;
 	cost: number;
+	userId: string;
 }

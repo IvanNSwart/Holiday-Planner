@@ -9,6 +9,7 @@ import { AuthServiceService } from "src/app/services/auth-service.service";
 import { NzCalendarMode } from "ng-zorro-antd/calendar";
 import { Observable } from "rxjs";
 import { ITrip } from "src/app/models/trip";
+import { IItineraryItem } from "src/app/models/itineraryItem";
 
 @Component({
 	selector: "app-main",
@@ -19,7 +20,7 @@ export class MainComponent implements OnInit {
 	user?: IUser;
 	date = new Date(2012, 11, 21);
 	mode: NzCalendarMode = "month";
-	Trips$?: Observable<ITrip[]>;
+	events$?: Observable<IItineraryItem[]>;
 	showMenu = false;
 
 	constructor(
@@ -34,11 +35,17 @@ export class MainComponent implements OnInit {
 		this.userStore
 			.pipe(select(UserSelectors.getAuthUser))
 			.subscribe((res) => (this.user = res));
-		this.Trips$ = this.firebaseService.getTrips();
+		this.events$ = this.firebaseService.getCalanderEvents();
 	}
 
 	toggleNav() {
 		this.showMenu = !this.showMenu;
+	}
+
+	viewEvent(tripId: string, eventId: string) {
+		this.router.navigate(["MyTrips", tripId, "event", eventId], {
+			replaceUrl: true,
+		});
 	}
 
 	getMyTrips() {

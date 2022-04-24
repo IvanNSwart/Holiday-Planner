@@ -94,19 +94,19 @@
 	>
 		<ul *nzDateCell="let date" class="events">
 			<ng-container [ngSwitch]="date">
-				<li *ngFor="let trip of Trips$ | async">
+				<li *ngFor="let event of events$ | async">
 					<ng-container
 						*ngIf="
-							(trip.startDate | date: 'shortDate') ===
+							(event.startTime | date: 'shortDate') ===
 							(date | date: 'shortDate')
 						"
 					>
 						<nz-badge
-							[nzStatus]="trip.name"
-							[nzText]="trip.name"
-							[routerLink]="['/MyTrips', trip.id]"
+							[nzStatus]="event.name"
+							[nzText]="event.name"
+							(click)="viewEvent(event.tripId, event.id)"
 						>
-							Trip Start</nz-badge
+							Itinery Item Start</nz-badge
 						>
 					</ng-container>
 				</li>

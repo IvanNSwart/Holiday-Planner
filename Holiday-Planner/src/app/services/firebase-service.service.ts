@@ -72,6 +72,28 @@ export class FirebaseServiceService {
 				)
 			);
 	}
+
+	getCalanderEvents(): Observable<IItineraryItem[]> {
+		return this.db
+			.collection<IItineraryItem>("Itinerary_Items", (ref) =>
+				ref.where("userId", "==", `${this.user?.id}`)
+			)
+			.snapshotChanges()
+			.pipe(
+				map((change) =>
+					change.map((a) => {
+						const data = a.payload.doc.data();
+						let { id } = data;
+						id = a.payload.doc.id;
+						return {
+							...data,
+							id,
+						} as IItineraryItem;
+					})
+				)
+			);
+	}
+
 	getEvent(tripId: string) {
 		return this.db
 			.collection<IItineraryItem>("Itinerary_Items")
@@ -112,6 +134,7 @@ export class FirebaseServiceService {
 				endTime: endTime,
 				startTime: startTime,
 				cost: cost,
+				userId: this.user?.id,
 			})
 			.then((docRef) => {
 				alert("Success");

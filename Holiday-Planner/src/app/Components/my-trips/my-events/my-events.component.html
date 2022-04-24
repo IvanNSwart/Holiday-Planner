@@ -4,15 +4,19 @@
 	</h1>
 	<div *ngFor="let event of Events | async; trackBy: identifyEvent">
 		<a
-			class="bg-teal-200 flex justify-between mt-3 py-4 shadow-lg mx-96 px-4"
+			class="bg-teal-200 flex justify-between mt-3 py-4 shadow-lg rounded-md px-4 mx-2 sm:mx-10 md:mx-20 lg:mx-96 xl:mx-96"
 			[routerLink]="['event', event.id]"
 		>
-			<p class="font-bold">{{ event.name }}</p>
-			<p>R{{ event.cost }}</p>
+			<p class="font-bold text-sm md:text-sm lg:text-lg xl:text-lg">
+				{{ event.name }}
+			</p>
+			<p class="text-sm md:text-sm lg:text-lg xl:text-lg">
+				R{{ event.cost }}
+			</p>
 		</a>
 	</div>
 	<a
-		class="bg-teal-500 flex justify-center mt-3 py-4 shadow-lg mx-96"
+		class="bg-teal-500 flex justify-center mt-3 py-4 shadow-lg rounded-md mx-2 sm:mx-10 md:mx-20 lg:mx-96 xl:mx-96"
 		(click)="createToggle()"
 	>
 		ADD

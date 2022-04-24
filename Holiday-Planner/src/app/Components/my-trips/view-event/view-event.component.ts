@@ -27,6 +27,8 @@ export class ViewEventComponent implements OnInit {
 	user?: IUser;
 	updateEventForm?: FormGroup;
 	update?: boolean;
+	showMenu = false;
+
 	constructor(
 		private route: ActivatedRoute,
 		private fireService: FirebaseServiceService,
@@ -75,5 +77,8 @@ export class ViewEventComponent implements OnInit {
 		);
 
 		this.update = !this.update;
+	}
+	toggleNav() {
+		this.showMenu = !this.showMenu;
 	}
 }

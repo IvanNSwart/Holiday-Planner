@@ -1,5 +1,5 @@
 <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
-	<div class="flex items-center flex-shrink-0 text-white mr-6">
+	<div class="flex items-center flex-shrink-0 text-white mr-6 lg:hidden">
 		<span class="font-semibold text-xl tracking-tight"
 			>Holiday Planner</span
 		>
@@ -7,6 +7,7 @@
 	<div class="block lg:hidden">
 		<button
 			class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white"
+			(click)="toggleNav()"
 		>
 			<svg
 				class="fill-current h-3 w-3"
@@ -18,12 +19,48 @@
 			</svg>
 		</button>
 	</div>
-	<div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+	<div class="lg:w-full flex-grow lg:flex lg:items-center hidden">
+		<div class="flex items-center flex-shrink-0 text-white mr-6">
+			<span class="font-semibold text-xl tracking-tight"
+				>Holiday Planner</span
+			>
+		</div>
 		<div class="text-sm lg:flex-grow">
 			<a
-				href="#responsive-header"
-				class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
 				routerLink="/Home"
+				class="inline-block mt-0 text-teal-200 hover:text-white mr-4"
+			>
+				Calander
+			</a>
+		</div>
+		<div>
+			<a
+				href="#responsive-header"
+				class="inline-block mt-0 text-teal-200 hover:text-white mr-4"
+				routerLink="/MyTrips"
+			>
+				MyTrips
+			</a>
+			<a
+				href="#"
+				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+				>{{ user?.email }}</a
+			>
+			<a
+				class="ml-2 bg-teal-200 text-white p-2 rounded-xl"
+				(click)="logout()"
+				>Sign Out</a
+			>
+		</div>
+	</div>
+	<div
+		class="w-full block flex-grow lg:flex lg:items-center lg:w-auto"
+		*ngIf="showMenu"
+	>
+		<div class="text-sm lg:flex-grow">
+			<a
+				routerLink="/Home"
+				class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4"
 			>
 				Calander
 			</a>
@@ -36,33 +73,34 @@
 			>
 				MyTrips
 			</a>
-
 			<a
 				href="#"
 				class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
 				>{{ user?.email }}</a
 			>
-			<a class="ml-2 bg-teal-200 text-white p-2" (click)="logout()"
+			<a
+				class="ml-2 bg-teal-200 text-white p-2 rounded-xl"
+				(click)="logout()"
 				>Sign Out</a
 			>
 		</div>
 	</div>
 </nav>
-<div class="bg-teal-400 h-full" *ngIf="!New">
+<div class="bg-teal-400 min-h-screen" *ngIf="!New">
 	<h1 class="text-3xl text-white flex justify-center pt-10 mb-10">
 		My Trips
 	</h1>
 
 	<div *ngFor="let trip of Trips$ | async; trackBy: identifyTrip">
 		<a
-			class="bg-teal-200 flex justify-center mt-3 py-4 shadow-lg mx-96"
+			class="bg-teal-200 flex justify-center mt-3 py-4 shadow-lg mx-10 sm:mx-10 md:mx-20 lg:mx-96 xl:mx-96"
 			[routerLink]="['/MyTrips', trip.id]"
 		>
 			{{ trip.name }}
 		</a>
 	</div>
 	<a
-		class="bg-teal-500 flex justify-center mt-3 py-4 shadow-lg mx-96"
+		class="bg-teal-500 flex justify-center mt-3 py-4 shadow-lg mx-10 sm:mx-10 md:mx-20 lg:mx-96 xl:mx-96"
 		(click)="createToggle()"
 	>
 		ADD

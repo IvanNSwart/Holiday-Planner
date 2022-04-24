@@ -1,12 +1,13 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { Pipe, PipeTransform } from "@angular/core";
+import { IItineraryItem } from "../models/itineraryItem";
 
 @Pipe({
-  name: 'filterEvents'
+	name: "filterEvents",
 })
 export class FilterEventsPipe implements PipeTransform {
-
-  transform(value: unknown, ...args: unknown[]): unknown {
-    return null;
-  }
-
+	transform(events: IItineraryItem[], filterDate: Date): IItineraryItem[] {
+		return events.sort(
+			(x, y) => +new Date(x.startTime) - +new Date(y.startTime)
+		);
+	}
 }

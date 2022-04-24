@@ -200,7 +200,7 @@ export class FirebaseServiceService {
 	}
 	deleteEvent(eventId: string) {
 		return this.db
-			.collection("Itineray_Items")
+			.collection("Itinerary_Items")
 			.doc(`${eventId}`)
 			.delete()
 			.then(() => {

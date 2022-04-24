@@ -26,6 +26,8 @@ export class MyTripsComponent implements OnInit {
 	newTripForm?: FormGroup;
 	New?: boolean;
 	user?: IUser;
+	showMenu = false;
+
 	constructor(
 		private firebaseService: FirebaseServiceService,
 		private router: Router,
@@ -69,6 +71,9 @@ export class MyTripsComponent implements OnInit {
 	}
 	logout() {
 		return this.authService.signOut();
+	}
+	toggleNav() {
+		this.showMenu = !this.showMenu;
 	}
 	// [routerLink]="['/product-details', product.id]">
 }

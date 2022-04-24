@@ -22,6 +22,7 @@ export class ViewTripComponent implements OnInit {
 	user?: IUser;
 	update?: boolean;
 	updateTripForm?: FormGroup;
+	showMenu = false;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -66,5 +67,8 @@ export class ViewTripComponent implements OnInit {
 	}
 	logout() {
 		return this.authService.signOut();
+	}
+	toggleNav() {
+		this.showMenu = !this.showMenu;
 	}
 }

@@ -20,6 +20,7 @@ export class MainComponent implements OnInit {
 	date = new Date(2012, 11, 21);
 	mode: NzCalendarMode = "month";
 	Trips$?: Observable<ITrip[]>;
+	showMenu = false;
 
 	constructor(
 		private userStore: Store<userState>,
@@ -34,6 +35,10 @@ export class MainComponent implements OnInit {
 			.pipe(select(UserSelectors.getAuthUser))
 			.subscribe((res) => (this.user = res));
 		this.Trips$ = this.firebaseService.getTrips();
+	}
+
+	toggleNav() {
+		this.showMenu = !this.showMenu;
 	}
 
 	getMyTrips() {
